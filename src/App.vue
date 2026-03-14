@@ -5,6 +5,9 @@ import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { TaskItem, TaskList } from "@tiptap/extension-list"
 import { TextAlign } from "@tiptap/extension-text-align"
 import { Placeholder } from '@tiptap/extensions'
+import { Image } from '@tiptap/extension-image'
+
+import { ImageUpload } from './tiptap-extension/ImageUpload'
 
 // --- Tiptap UI ---
 import UndoRedoButton from './tiptap-ui/UndoRedoButton'
@@ -24,6 +27,8 @@ const editor = useEditor({
     TextAlign.configure({ types: ['heading', 'paragraph'] }),
     TaskList,
     TaskItem.configure({ nested: true }),
+    Image.configure({ allowBase64: true, resize: { enabled: true } }),
+    ImageUpload,
   ],
 })
 
