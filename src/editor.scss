@@ -1,0 +1,35 @@
+.tiptap-toolbar {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+
+  .tiptap-button {
+    padding: 9px 8px;
+  }
+
+  .el-button + .el-button {
+    margin-left: 0;
+  }
+
+  .tiptap-button-icon {
+    width: 1em;
+    height: 1em;
+    color: rgba(36, 39, 46, 0.78);
+  }
+
+  .tiptap-separator {
+    flex-shrink: 0;
+    background-color: rgba(37, 39, 45, 0.1);
+    height: 1.5rem;
+    width: 1px;
+    margin: 0 2px;
+  }
+}
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
