@@ -174,7 +174,15 @@ export default defineComponent({
     )
 
     const PlusIcon = () => (
-      <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <svg
+        width="10"
+        height="10"
+        viewBox="0 0 10 10"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      >
         <path d="M5 1v8M1 5h8" />
       </svg>
     )
@@ -197,14 +205,14 @@ export default defineComponent({
       // Column button: above the table, centered on the focused column
       const colBtnStyle = {
         position: 'absolute' as const,
-        top: `${tTop - 24}px`,
+        top: `${tTop - 20}px`,
         left: `${cLeft + cW / 2 - 18}px`,
       }
       // Row button: left of the table, centered on the focused row
       const rowBtnStyle = {
         position: 'absolute' as const,
         top: `${cTop + cH / 2 - 18}px`,
-        left: `${tLeft - 26}px`,
+        left: `${tLeft - 20}px`,
       }
       // Add column button: right of the table, centered on focused row
       const addColBtnStyle = {
