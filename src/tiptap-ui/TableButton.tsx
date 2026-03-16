@@ -6,22 +6,6 @@ import TableIcon from '../tiptap-icons/TableIcon'
 const COLS = 8
 const ROWS = 8
 
-const ColsIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-    <rect x="1" y="2" width="3" height="12" rx="1" />
-    <rect x="6" y="2" width="3" height="12" rx="1" />
-    <rect x="11" y="2" width="3" height="12" rx="1" />
-  </svg>
-)
-
-const RowsIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-    <rect x="2" y="1" width="12" height="3" rx="1" />
-    <rect x="2" y="6" width="12" height="3" rx="1" />
-    <rect x="2" y="11" width="12" height="3" rx="1" />
-  </svg>
-)
-
 export default defineComponent({
   name: 'TableButton',
   setup() {
@@ -50,24 +34,27 @@ export default defineComponent({
     }
 
     return () => (
-      <ElTooltip content="表格" showArrow={false} offset={6} disabled={visible.value}>
-        <ElPopover
-          v-model:visible={visible.value}
-          trigger="click"
-          placement="bottom-start"
-          popperClass="table-picker-popper"
-          width="auto"
-          showArrow={false}
-          v-slots={{
-            reference: () => (
-              <ElButton
-                text
-                class={['tiptap-button', { 'is-active': visible.value }]}
-              >
-                <TableIcon class="tiptap-button-icon" />
-              </ElButton>
-            ),
-            default: () => (
+      <ElPopover
+        v-model:visible={visible.value}
+        trigger="click"
+        placement="bottom-start"
+        popperClass="table-picker-popper"
+        width="auto"
+        showArrow={false}
+        v-slots={{
+          reference: () => (
+            <span>
+              <ElTooltip content="表格" showArrow={false} offset={6} disabled={visible.value}>
+                <ElButton
+                  text
+                  class={['tiptap-button', { 'is-active': visible.value }]}
+                >
+                  <TableIcon class="tiptap-button-icon" />
+                </ElButton>
+              </ElTooltip>
+            </span>
+          ),
+          default: () => (
               <div class="table-picker">
                 <div class="table-picker-grid" onMouseleave={onGridLeave}>
                   {Array.from({ length: ROWS }, (_, r) => (
@@ -88,20 +75,19 @@ export default defineComponent({
                 </div>
                 <div class="table-picker-footer">
                   <div class="table-picker-counter">
-                    <ColsIcon />
+                    <span>列</span>
                     <span>{hoverCol.value || 1}</span>
                   </div>
                   <span class="table-picker-x">x</span>
                   <div class="table-picker-counter">
-                    <RowsIcon />
+                    <span>行</span>
                     <span>{hoverRow.value || 1}</span>
                   </div>
                 </div>
               </div>
             ),
           }}
-        />
-      </ElTooltip>
+      />
     )
   },
 })
