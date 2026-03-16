@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide } from 'vue'
+import { provide, ref } from 'vue'
 import StarterKit from '@tiptap/starter-kit'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { TaskItem, TaskList } from '@tiptap/extension-list'
@@ -7,6 +7,7 @@ import { TextAlign } from '@tiptap/extension-text-align'
 import { Placeholder } from '@tiptap/extensions'
 import { Image } from '@tiptap/extension-image'
 import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table'
+import { Mathematics } from '@tiptap/extension-mathematics'
 
 import { ImageUpload } from './tiptap-extension/ImageUpload'
 
@@ -18,8 +19,25 @@ import ListButton from './tiptap-ui/ListButton'
 import ImageButton from './tiptap-ui/ImageButton'
 import TableButton from './tiptap-ui/TableButton'
 import TableControls from './tiptap-ui/TableControls'
+import MathButton from './tiptap-ui/MathButton'
+import MathEditDialog from './tiptap-ui/MathEditDialog.vue'
 
+import 'katex/dist/katex.min.css'
 import './editor.scss'
+
+const mathEditVisible = ref(false)
+const mathEditLatex = ref('')
+const mathEditPos = ref<number | null>(null)
+const mathEditType = ref<'inline' | 'block'>('inline')
+
+const openMathDialog = (opts: { latex?: string; pos?: number | null; type?: 'inline' | 'block' } = {}) => {
+  mathEditLatex.value = opts.latex ?? ''
+  mathEditPos.value = opts.pos ?? null
+  mathEditType.value = opts.type ?? 'inline'
+  mathEditVisible.value = true
+}
+
+provide('openMathDialog', openMathDialog)
 
 const editor = useEditor({
   extensions: [
@@ -54,6 +72,14 @@ const editor = useEditor({
     TableRow,
     TableHeader,
     TableCell,
+    Mathematics.configure({
+      inlineOptions: {
+        onClick: (node, pos) => openMathDialog({ latex: node.attrs.latex, pos, type: 'inline' }),
+      },
+      blockOptions: {
+        onClick: (node, pos) => openMathDialog({ latex: node.attrs.latex, pos, type: 'block' }),
+      },
+    }),
   ],
 })
 
@@ -73,8 +99,16 @@ provide('editor', editor)
       <ImageButton />
       <div class="tiptap-separator"></div>
       <TableButton />
+      <div class="tiptap-separator"></div>
+      <MathButton />
     </div>
     <EditorContent class="tiptap-content" :editor="editor" />
     <TableControls />
+    <MathEditDialog
+      v-model:visible="mathEditVisible"
+      :latex="mathEditLatex"
+      :pos="mathEditPos"
+      :type="mathEditType"
+    />
   </div>
 </template>
