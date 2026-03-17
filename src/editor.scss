@@ -6,6 +6,11 @@
 
   .tiptap-button {
     padding: 9px 8px;
+
+    &.is-active {
+      color: #409eff;
+      background-color: rgba(64, 158, 255, 0.1);
+    }
   }
 
   .el-button + .el-button {
@@ -525,6 +530,44 @@
   &.is-active {
     background: #e8f4ff;
     color: #409eff;
+  }
+}
+
+.link-popover-popper.el-popper {
+  padding: 6px !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.link-popover-inner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .el-input {
+    flex: 1;
+  }
+}
+
+.link-popover-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+
+  .el-button {
+    padding: 6px;
+    width: 28px;
+    height: 28px;
+
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+
+  .el-button + .el-button {
+    margin-left: 0;
   }
 }
 

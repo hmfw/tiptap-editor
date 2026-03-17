@@ -42,7 +42,12 @@ provide('openMathDialog', openMathDialog)
 
 const editor = useEditor({
   extensions: [
-    StarterKit,
+    StarterKit.configure({
+      link: {
+        openOnClick: false,
+        enableClickSelection: true,
+      },
+    }),
     Placeholder.configure({
       placeholder: '请输入内容...',
     }),

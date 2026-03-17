@@ -1,28 +1,17 @@
 import { defineComponent, inject, type ShallowRef } from 'vue'
 import type { Editor } from '@tiptap/core'
 import IconButton from '../components/IconButton'
+import LinkPopover from './LinkPopover'
 
 import BoldIcon from '../tiptap-icons/BoldIcon'
 import ItalicIcon from '../tiptap-icons/ItalicIcon'
 import StrikeIcon from '../tiptap-icons/StrikeIcon'
 import UnderlineIcon from '../tiptap-icons/UnderlineIcon'
-import LinkIcon from '../tiptap-icons/LinkIcon'
 
 export default defineComponent({
   name: 'TextStyleButton',
   setup() {
     const editor = inject<ShallowRef<Editor | undefined>>('editor')
-
-    const toggleLink = () => {
-      const e = editor?.value
-      if (!e) return
-      if (e.isActive('link')) {
-        e.chain().focus().unsetLink().run()
-      } else {
-        const href = window.prompt('请输入链接')
-        if (href) e.chain().focus().setLink({ href }).run()
-      }
-    }
 
     return () => (
       <div>
@@ -50,12 +39,7 @@ export default defineComponent({
           isActive={editor?.value?.isActive('underline')}
           onClick={() => editor?.value?.chain().focus().toggleUnderline().run()}
         />
-        <IconButton
-          icon={LinkIcon}
-          tooltip="链接"
-          isActive={editor?.value?.isActive('link')}
-          onClick={toggleLink}
-        />
+        <LinkPopover />
       </div>
     )
   },
