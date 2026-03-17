@@ -5,6 +5,14 @@ import AlignLeftIcon from '../tiptap-icons/AlignLeftIcon'
 import AlignCenterIcon from '../tiptap-icons/AlignCenterIcon'
 import AlignRightIcon from '../tiptap-icons/AlignRightIcon'
 
+const ALIGN_BUTTONS = [
+  { value: 'left', title: '居左', Icon: AlignLeftIcon },
+  { value: 'center', title: '居中', Icon: AlignCenterIcon },
+  { value: 'right', title: '居右', Icon: AlignRightIcon },
+]
+
+const preventDefault = (e: MouseEvent) => e.preventDefault()
+
 interface ImageInfo {
   pos: number
   nodeSize: number
@@ -109,10 +117,8 @@ export default defineComponent({
     watchEffect((cleanup) => {
       const ed = editor?.value
       if (!ed) return
-      ed.on('selectionUpdate', updateControls)
       ed.on('transaction', updateControls)
       cleanup(() => {
-        ed.off('selectionUpdate', updateControls)
         ed.off('transaction', updateControls)
       })
     })
@@ -145,43 +151,24 @@ export default defineComponent({
 
       return (
         <div class="image-controls" style={style}>
-          <button
-            class={['image-controls-btn', align === 'left' && 'is-active']}
-            title="居左"
-            onMousedown={(e: MouseEvent) => e.preventDefault()}
-            onClick={() =>
-              ed.chain().focus().updateAttributes('image', { align: 'left' }).run()
-            }
-          >
-            <AlignLeftIcon />
-          </button>
-          <button
-            class={['image-controls-btn', align === 'center' && 'is-active']}
-            title="居中"
-            onMousedown={(e: MouseEvent) => e.preventDefault()}
-            onClick={() =>
-              ed.chain().focus().updateAttributes('image', { align: 'center' }).run()
-            }
-          >
-            <AlignCenterIcon />
-          </button>
-          <button
-            class={['image-controls-btn', align === 'right' && 'is-active']}
-            title="居右"
-            onMousedown={(e: MouseEvent) => e.preventDefault()}
-            onClick={() =>
-              ed.chain().focus().updateAttributes('image', { align: 'right' }).run()
-            }
-          >
-            <AlignRightIcon />
-          </button>
+          {ALIGN_BUTTONS.map(({ value, title, Icon }) => (
+            <button
+              key={value}
+              class={['image-controls-btn', align === value && 'is-active']}
+              title={title}
+              onMousedown={preventDefault}
+              onClick={() => ed.chain().focus().updateAttributes('image', { align: value }).run()}
+            >
+              <Icon />
+            </button>
+          ))}
 
           <span class="image-controls-separator" />
 
           <button
             class="image-controls-btn"
             title="下载"
-            onMousedown={(e: MouseEvent) => e.preventDefault()}
+            onMousedown={preventDefault}
             onClick={() => downloadImage(src)}
           >
             <DownloadIcon />
@@ -189,7 +176,7 @@ export default defineComponent({
           <button
             class="image-controls-btn"
             title="重新上传"
-            onMousedown={(e: MouseEvent) => e.preventDefault()}
+            onMousedown={preventDefault}
             onClick={() =>
               ed
                 .chain()
@@ -204,7 +191,7 @@ export default defineComponent({
           <button
             class="image-controls-btn"
             title="删除"
-            onMousedown={(e: MouseEvent) => e.preventDefault()}
+            onMousedown={preventDefault}
             onClick={() =>
               ed
                 .chain()
