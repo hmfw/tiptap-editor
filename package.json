@@ -1,33 +1,47 @@
 {
-  "name": "tiptap-vue",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@hmfw/tiptap-editor",
+  "version": "0.1.0",
   "type": "module",
+  "main": "./dist/tiptap-vue.umd.cjs",
+  "module": "./dist/tiptap-vue.js",
+  "exports": {
+    ".": {
+      "import": "./dist/tiptap-vue.js",
+      "require": "./dist/tiptap-vue.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build:lib": "vue-tsc -b && vite build --mode lib",
     "preview": "vite preview"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@tiptap/core": "^3.20.0",
     "@tiptap/extension-highlight": "^3.20.0",
     "@tiptap/extension-horizontal-rule": "^3.20.0",
     "@tiptap/extension-image": "^3.20.0",
     "@tiptap/extension-list": "^3.20.0",
-    "@tiptap/extension-mathematics": "^3.20.2",
+    "@tiptap/extension-mathematics": "^3.20.0",
     "@tiptap/extension-subscript": "^3.20.0",
     "@tiptap/extension-superscript": "^3.20.0",
-    "@tiptap/extension-table": "^3.20.2",
+    "@tiptap/extension-table": "^3.20.0",
     "@tiptap/extension-text-align": "^3.20.0",
     "@tiptap/extension-typography": "^3.20.0",
     "@tiptap/extensions": "^3.20.0",
     "@tiptap/pm": "^3.20.0",
     "@tiptap/starter-kit": "^3.20.0",
     "@tiptap/vue-3": "^3.20.0",
-    "element-plus": "^2.13.3",
-    "katex": "^0.16.38",
-    "vue": "^3.5.25"
+    "element-plus": "^2.13.0",
+    "katex": "^0.16.0",
+    "vue": "^3.5.0"
   },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.2",
@@ -37,6 +51,7 @@
     "typescript": "~5.9.3",
     "unplugin-element-plus": "^0.11.2",
     "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
     "vue-tsc": "^3.1.5"
   }
 }
