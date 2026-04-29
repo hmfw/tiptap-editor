@@ -9,7 +9,7 @@ import { ImageWithAlign } from './tiptap-extension/ImageWithAlign'
 import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table'
 import { Mathematics } from '@tiptap/extension-mathematics'
 
-import { ImageUpload } from './tiptap-extension/ImageUpload'
+import { ImageUpload, type UploadFn } from './tiptap-extension/ImageUpload'
 
 // --- Tiptap UI ---
 import UndoRedoButton from './tiptap-ui/UndoRedoButton'
@@ -29,6 +29,7 @@ import './editor.scss'
 const props = withDefaults(defineProps<{
   modelValue?: string
   placeholder?: string
+  upload?: UploadFn
 }>(), {
   modelValue: '',
   placeholder: '请输入内容...',
@@ -86,7 +87,9 @@ const editor = useEditor({
         alwaysPreserveAspectRatio: false,
       },
     }),
-    ImageUpload,
+    ImageUpload.configure({
+      ...(props.upload ? { upload: props.upload } : {}),
+    }),
     Table.configure({ resizable: true }),
     TableRow,
     TableHeader,

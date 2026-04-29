@@ -1,6 +1,6 @@
 {
   "name": "@mario9/tiptap-editor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "main": "./dist/tiptap-editor.umd.cjs",
   "module": "./dist/tiptap-editor.js",
@@ -9,7 +9,7 @@
       "import": "./dist/tiptap-editor.js",
       "require": "./dist/tiptap-editor.umd.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./tiptap-editor.css": "./dist/tiptap-editor.css"
   },
   "types": "./dist/index.d.ts",
   "files": [
