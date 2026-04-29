@@ -4,12 +4,16 @@ import StarterKit from '@tiptap/starter-kit'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { TaskItem, TaskList } from '@tiptap/extension-list'
 import { TextAlign } from '@tiptap/extension-text-align'
-import { Placeholder } from '@tiptap/extensions'
+import { Placeholder } from '@tiptap/extension-placeholder'
+import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight'
+import { common, createLowlight } from 'lowlight'
 import { ImageWithAlign } from './tiptap-extension/ImageWithAlign'
 import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table'
 import { Mathematics } from '@tiptap/extension-mathematics'
 
 import { ImageUpload, type UploadFn } from './tiptap-extension/ImageUpload'
+
+const lowlight = createLowlight(common)
 
 // --- Tiptap UI ---
 import UndoRedoButton from './tiptap-ui/UndoRedoButton'
@@ -22,6 +26,8 @@ import TableControls from './tiptap-ui/TableControls'
 import MathButton from './tiptap-ui/MathButton'
 import MathEditDialog from './tiptap-ui/MathEditDialog.vue'
 import ImageControls from './tiptap-ui/ImageControls'
+import CodeBlockButton from './tiptap-ui/CodeBlockButton'
+import BubbleMenuBar from './tiptap-ui/BubbleMenuBar'
 
 import 'katex/dist/katex.min.css'
 import './editor.scss'
@@ -57,6 +63,7 @@ const editor = useEditor({
   content: props.modelValue,
   extensions: [
     StarterKit.configure({
+      codeBlock: false,
       link: {
         openOnClick: false,
         enableClickSelection: true,
@@ -64,6 +71,10 @@ const editor = useEditor({
     }),
     Placeholder.configure({
       placeholder: props.placeholder,
+    }),
+    CodeBlockLowlight.configure({
+      lowlight,
+      defaultLanguage: 'plaintext',
     }),
     TextAlign.configure({ types: ['heading', 'paragraph'] }),
     TaskList,
@@ -122,6 +133,7 @@ watch(() => props.modelValue, (val) => {
       <UndoRedoButton />
       <div class="tiptap-separator"></div>
       <TextStyleButton />
+      <CodeBlockButton />
       <div class="tiptap-separator"></div>
       <ListButton />
       <div class="tiptap-separator"></div>
@@ -132,6 +144,7 @@ watch(() => props.modelValue, (val) => {
       <MathButton />
     </div>
     <EditorContent class="tiptap-content" :editor="editor" />
+    <BubbleMenuBar />
     <TableControls />
     <ImageControls />
     <MathEditDialog
