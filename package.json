@@ -1,17 +1,45 @@
 {
   "name": "@mario9/tiptap-editor",
   "version": "0.1.2",
+  "description": "基于 Tiptap + Vue 3 的富文本编辑器组件。",
   "type": "module",
   "main": "./dist/tiptap-editor.umd.cjs",
   "module": "./dist/tiptap-editor.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/tiptap-editor.js",
       "require": "./dist/tiptap-editor.umd.cjs"
     },
     "./tiptap-editor.css": "./dist/tiptap-editor.css"
   },
   "types": "./dist/index.d.ts",
+  "keywords": [
+    "vue",
+    "vue3",
+    "tiptap",
+    "editor",
+    "rich-text",
+    "wysiwyg",
+    "富文本编辑器",
+    "markdown"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmfw/tiptap-editor.git"
+  },
+  "homepage": "https://github.com/hmfw/tiptap-editor#readme",
+  "bugs": {
+    "url": "https://github.com/hmfw/tiptap-editor/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "files": [
     "dist"
   ],

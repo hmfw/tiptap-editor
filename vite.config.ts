@@ -33,6 +33,7 @@ export default defineConfig(({ mode }) => {
             /^@element-plus\//,
             /^@tiptap\//,
             'katex',
+            'lowlight',
           ],
           output: {
             globals: {

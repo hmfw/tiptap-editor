@@ -1,0 +1,25 @@
+# 源代码
+src/
+*.vue
+*.ts
+*.tsx
+*.scss
+
+# 配置文件
+vite.config.ts
+tsconfig*.json
+.vscode/
+.idea/
+
+# 开发文件
+node_modules/
+dist-app/
+.DS_Store
+*.log
+
+# Git
+.git/
+.gitignore
+
+# 文档（保留 README.md）
+CLAUDE.md
