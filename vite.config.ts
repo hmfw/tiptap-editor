@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
       plugins: [
         vue(),
         vueJsx(),
+        ElementPlus({}),
         dts({
           include: ['src/index.ts', 'src/TiptapEditor.vue', 'src/components', 'src/tiptap-extension'],
           outDir: 'dist',
