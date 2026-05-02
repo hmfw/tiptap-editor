@@ -37,6 +37,7 @@ const content = ref('')
 | `modelValue` | `string` | `''` | 编辑器内容（HTML 格式），支持 `v-model` 双向绑定 |
 | `placeholder` | `string` | `'请输入内容...'` | 编辑器占位符文本 |
 | `upload` | `(file: File) => Promise<string>` | Base64 转换 | 图片上传函数，返回图片 URL |
+| `readonly` | `boolean` | `false` | 只读模式：隐藏工具栏，禁止编辑，图片控件仅保留下载，表格控件隐藏，数学公式不可编辑 |
 
 ## 自定义图片上传
 

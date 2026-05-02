@@ -1,4 +1,4 @@
-import { defineComponent, inject, ref, watchEffect, type Ref } from 'vue'
+import { defineComponent, inject, ref, watchEffect, type Ref, type ComputedRef } from 'vue'
 import type { Editor } from '@tiptap/core'
 import type { Node as PMNode } from '@tiptap/pm/model'
 import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
@@ -68,6 +68,7 @@ export default defineComponent({
   name: 'TableControls',
   setup() {
     const editor = inject<Ref<Editor | undefined>>('editor')
+    const readonly = inject<ComputedRef<boolean>>('readonly')
     const info = ref<CellInfo | null>(null)
     const prevCell = ref<HTMLElement | null>(null)
 
@@ -188,6 +189,7 @@ export default defineComponent({
     )
 
     return () => {
+      if (readonly?.value) return null
       const i = info.value
       if (!i) return null
 

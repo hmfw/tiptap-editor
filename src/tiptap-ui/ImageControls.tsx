@@ -1,4 +1,4 @@
-import { defineComponent, inject, ref, watchEffect, type ShallowRef } from 'vue'
+import { defineComponent, inject, ref, watchEffect, type ShallowRef, type ComputedRef } from 'vue'
 import type { Editor } from '@tiptap/core'
 import { NodeSelection } from '@tiptap/pm/state'
 import AlignLeftIcon from '../tiptap-icons/AlignLeftIcon'
@@ -103,6 +103,7 @@ export default defineComponent({
   name: 'ImageControls',
   setup() {
     const editor = inject<ShallowRef<Editor | undefined>>('editor')
+    const readonly = inject<ComputedRef<boolean>>('readonly')
     const info = ref<ImageInfo | null>(null)
 
     function updateControls() {
@@ -130,6 +131,7 @@ export default defineComponent({
       if (!ed) return null
 
       const { pos, nodeSize, src, align } = i
+      const isRO = readonly?.value ?? false
 
       // 每次渲染时实时获取 rect，避免因图片尚未加载完成导致坐标错误
       // nodeDOM 返回 [data-resize-container]，wrapper 是其子元素，用 wrapper 的 rect 定位工具栏
@@ -151,7 +153,7 @@ export default defineComponent({
 
       return (
         <div class="image-controls" style={style}>
-          {ALIGN_BUTTONS.map(({ value, title, Icon }) => (
+          {!isRO && ALIGN_BUTTONS.map(({ value, title, Icon }) => (
             <button
               key={value}
               class={['image-controls-btn', align === value && 'is-active']}
@@ -163,7 +165,7 @@ export default defineComponent({
             </button>
           ))}
 
-          <span class="image-controls-separator" />
+          {!isRO && <span class="image-controls-separator" />}
 
           <button
             class="image-controls-btn"
@@ -173,35 +175,39 @@ export default defineComponent({
           >
             <DownloadIcon />
           </button>
-          <button
-            class="image-controls-btn"
-            title="重新上传"
-            onMousedown={preventDefault}
-            onClick={() =>
-              ed
-                .chain()
-                .focus()
-                .deleteRange({ from: pos, to: pos + nodeSize })
-                .insertContentAt(pos, { type: 'imageUpload' })
-                .run()
-            }
-          >
-            <RefreshIcon />
-          </button>
-          <button
-            class="image-controls-btn"
-            title="删除"
-            onMousedown={preventDefault}
-            onClick={() =>
-              ed
-                .chain()
-                .focus()
-                .deleteRange({ from: pos, to: pos + nodeSize })
-                .run()
-            }
-          >
-            <TrashIcon />
-          </button>
+          {!isRO && (
+            <button
+              class="image-controls-btn"
+              title="重新上传"
+              onMousedown={preventDefault}
+              onClick={() =>
+                ed
+                  .chain()
+                  .focus()
+                  .deleteRange({ from: pos, to: pos + nodeSize })
+                  .insertContentAt(pos, { type: 'imageUpload' })
+                  .run()
+              }
+            >
+              <RefreshIcon />
+            </button>
+          )}
+          {!isRO && (
+            <button
+              class="image-controls-btn"
+              title="删除"
+              onMousedown={preventDefault}
+              onClick={() =>
+                ed
+                  .chain()
+                  .focus()
+                  .deleteRange({ from: pos, to: pos + nodeSize })
+                  .run()
+              }
+            >
+              <TrashIcon />
+            </button>
+          )}
         </div>
       )
     }

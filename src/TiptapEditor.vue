@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, ref, watch } from 'vue'
+import { provide, ref, watch, computed } from 'vue'
 import StarterKit from '@tiptap/starter-kit'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { TaskItem, TaskList } from '@tiptap/extension-list'
@@ -36,9 +36,11 @@ const props = withDefaults(defineProps<{
   modelValue?: string
   placeholder?: string
   upload?: UploadFn
+  readonly?: boolean
 }>(), {
   modelValue: '',
   placeholder: '请输入内容...',
+  readonly: false,
 })
 
 const emit = defineEmits<{
@@ -50,7 +52,10 @@ const mathEditLatex = ref('')
 const mathEditPos = ref<number | null>(null)
 const mathEditType = ref<'inline' | 'block'>('inline')
 
+const isReadonly = computed(() => props.readonly ?? false)
+
 const openMathDialog = (opts: { latex?: string; pos?: number | null; type?: 'inline' | 'block' } = {}) => {
+  if (isReadonly.value) return
   mathEditLatex.value = opts.latex ?? ''
   mathEditPos.value = opts.pos ?? null
   mathEditType.value = opts.type ?? 'inline'
@@ -58,9 +63,11 @@ const openMathDialog = (opts: { latex?: string; pos?: number | null; type?: 'inl
 }
 
 provide('openMathDialog', openMathDialog)
+provide('readonly', isReadonly)
 
 const editor = useEditor({
   content: props.modelValue,
+  editable: !props.readonly,
   extensions: [
     StarterKit.configure({
       codeBlock: false,
@@ -126,10 +133,14 @@ watch(() => props.modelValue, (val) => {
     editor.value.commands.setContent(val, { emitUpdate: false })
   }
 })
+
+watch(() => props.readonly, (val) => {
+  editor.value?.setEditable(!val)
+})
 </script>
 <template>
   <div class="tiptap-editor">
-    <div class="tiptap-toolbar">
+    <div v-if="!readonly" class="tiptap-toolbar">
       <UndoRedoButton />
       <div class="tiptap-separator"></div>
       <TextStyleButton />
