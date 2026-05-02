@@ -1,20 +1,9 @@
 import { Node, mergeAttributes } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import type { NodeType } from '@tiptap/pm/model'
-import ImageUploadView from './ImageUploadView.vue'
+import ImageUploadView from './ImageUploadView'
+import type { ImageUploadOptions } from '../types'
 
-export type UploadFn = (file: File) => Promise<string>
-
-export interface ImageUploadOptions {
-  type: string | NodeType
-  accept: string
-  limit: number
-  maxSize: number
-  upload?: UploadFn
-  onError?: (error: Error) => void
-  onSuccess?: (url: string) => void
-  HTMLAttributes: Record<string, any>
-}
+export type { UploadFn } from '../types'
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {

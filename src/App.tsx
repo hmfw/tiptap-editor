@@ -1,8 +1,10 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import TiptapEditor from './TiptapEditor.vue'
+import { defineComponent, ref } from 'vue'
+import TiptapEditor from './TiptapEditor'
 
-const content = ref(`
+export default defineComponent({
+  name: 'App',
+  setup() {
+    const content = ref(`
 <h1>Tiptap 编辑器功能演示</h1>
 <p>这是一个功能完整的富文本编辑器，支持多种格式和元素。</p>
 
@@ -112,7 +114,13 @@ const content = ref(`
 
 <p style="text-align: center"><em>使用工具栏可以编辑所有元素，选中文本时会出现气泡菜单</em></p>
 `)
-</script>
-<template>
-  <TiptapEditor v-model="content" />
-</template>
+
+    return () => (
+      <TiptapEditor
+        modelValue={content.value}
+        onUpdate:modelValue={(val: string) => { content.value = val }}
+      />
+    )
+  },
+})
+
