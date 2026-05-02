@@ -1,6 +1,6 @@
 {
   "name": "@mario9/tiptap-editor",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "基于 Tiptap + Vue 3 的富文本编辑器组件。",
   "type": "module",
   "main": "./dist/tiptap-editor.umd.cjs",
