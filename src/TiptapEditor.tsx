@@ -1,4 +1,4 @@
-import { defineComponent, provide, ref, watch, computed, type PropType } from 'vue'
+import { defineComponent, provide, ref, watch, computed, type PropType, type Component } from 'vue'
 import StarterKit from '@tiptap/starter-kit'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { TaskItem, TaskList } from '@tiptap/extension-list'
@@ -11,7 +11,8 @@ import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table
 import { Mathematics } from '@tiptap/extension-mathematics'
 
 import { ImageUpload } from './tiptap-extension/ImageUpload'
-import type { UploadFn, MathType } from './types'
+import type { UploadFn, MathType, ToolbarConfig, ToolbarItem } from './types'
+import { DEFAULT_TOOLBAR_CONFIG } from './types/toolbar'
 
 const lowlight = createLowlight(common)
 
@@ -38,9 +39,43 @@ export default defineComponent({
     placeholder: { type: String, default: '请输入内容...' },
     upload: { type: Function as PropType<UploadFn>, default: undefined },
     readonly: { type: Boolean, default: false },
+    toolbar: { type: Array as PropType<ToolbarConfig>, default: undefined },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    // 按钮组件映射表
+    const TOOLBAR_COMPONENT_MAP: Record<string, Component> = {
+      'undo-redo': UndoRedoButton,
+      'text-style': TextStyleButton,
+      'code-block': CodeBlockButton,
+      'list': ListButton,
+      'text-align': TextAlignButton,
+      'image': ImageButton,
+      'table': TableButton,
+      'math': MathButton,
+    }
+
+    // 工具栏配置
+    const toolbarConfig = computed(() => props.toolbar ?? DEFAULT_TOOLBAR_CONFIG)
+
+    // 渲染工具栏项
+    const renderToolbarItem = (item: ToolbarItem, index: number) => {
+      // 分隔符
+      if (item === '|') {
+        return <div key={`separator-${index}`} class="tiptap-separator" />
+      }
+
+      // 自定义组件
+      if (typeof item === 'object' && item.type === 'custom') {
+        const CustomComponent = item.component as any
+        return <CustomComponent key={item.key ?? `custom-${index}`} />
+      }
+
+      // 内置按钮组
+      const BuiltinComponent = TOOLBAR_COMPONENT_MAP[item as string] as any
+      return BuiltinComponent ? <BuiltinComponent key={item} /> : null
+    }
+
     const mathEditVisible = ref(false)
     const mathEditLatex = ref('')
     const mathEditPos = ref<number | null>(null)
@@ -136,18 +171,7 @@ export default defineComponent({
       <div class="tiptap-editor">
         {!props.readonly && (
           <div class="tiptap-toolbar">
-            <UndoRedoButton />
-            <div class="tiptap-separator" />
-            <TextStyleButton />
-            <CodeBlockButton />
-            <div class="tiptap-separator" />
-            <ListButton />
-            <div class="tiptap-separator" />
-            <TextAlignButton />
-            <div class="tiptap-separator" />
-            <ImageButton />
-            <TableButton />
-            <MathButton />
+            {toolbarConfig.value.map((item, index) => renderToolbarItem(item, index))}
           </div>
         )}
         <EditorContent class="tiptap-content" editor={editor.value} />

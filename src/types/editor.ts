@@ -1,4 +1,5 @@
 import type { UploadFn } from './upload'
+import type { ToolbarConfig } from './toolbar'
 
 /**
  * 编辑器 Props
@@ -8,6 +9,7 @@ export interface TiptapEditorProps {
   placeholder?: string
   upload?: UploadFn
   readonly?: boolean
+  toolbar?: ToolbarConfig
 }
 
 /**
