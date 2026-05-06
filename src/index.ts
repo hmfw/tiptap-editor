@@ -3,23 +3,17 @@ export { default as TiptapEditor } from './TiptapEditor'
 export { default as IconButton } from './components/IconButton'
 export { ImageWithAlign } from './tiptap-extension/ImageWithAlign'
 
-// 工具栏按钮组件（供高级用户使用）
-export { default as UndoRedoButton } from './tiptap-ui/UndoRedoButton'
-export { default as TextStyleButton } from './tiptap-ui/TextStyleButton'
-export { default as CodeBlockButton } from './tiptap-ui/CodeBlockButton'
-export { default as ListButton } from './tiptap-ui/ListButton'
-export { default as TextAlignButton } from './tiptap-ui/TextAlignButton'
-export { default as ImageButton } from './tiptap-ui/ImageButton'
-export { default as TableButton } from './tiptap-ui/TableButton'
-export { default as MathButton } from './tiptap-ui/MathButton'
+// Feature plugins
+export { UndoRedoFeature } from './features/UndoRedoFeature'
+export { TextStyleFeature } from './features/TextStyleFeature'
+export { TextAlignFeature } from './features/TextAlignFeature'
+export { ListFeature } from './features/ListFeature'
+export { CodeBlockFeature } from './features/CodeBlockFeature'
+export { TableFeature } from './features/TableFeature'
+export { MathFeature } from './features/MathFeature'
+export { ImageFeature } from './features/ImageFeature'
+export { SeparatorFeature } from './features/SeparatorFeature'
 
-// 类型和常量
-export type { UploadFn } from './types'
-export type {
-  ToolbarConfig,
-  ToolbarItem,
-  BuiltinToolbarItem,
-  ToolbarSeparator,
-  CustomToolbarItem,
-} from './types'
-export { DEFAULT_TOOLBAR_CONFIG } from './types/toolbar'
+// 类型
+export type { FeaturePlugin, PluginInstallContext, PluginInstallResult } from './types/plugin'
+export type { UploadFn, MathType } from './types'

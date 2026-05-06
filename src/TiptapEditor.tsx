@@ -1,35 +1,13 @@
-import { defineComponent, provide, ref, watch, computed, type PropType, type Component } from 'vue'
+import { defineComponent, provide, watch, computed, type PropType } from 'vue'
 import StarterKit from '@tiptap/starter-kit'
 import { useEditor, EditorContent } from '@tiptap/vue-3'
 import { TaskItem, TaskList } from '@tiptap/extension-list'
 import { TextAlign } from '@tiptap/extension-text-align'
 import { Placeholder } from '@tiptap/extension-placeholder'
-import { CodeBlockLowlight } from '@tiptap/extension-code-block-lowlight'
-import { common, createLowlight } from 'lowlight'
-import { ImageWithAlign } from './tiptap-extension/ImageWithAlign'
-import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table'
-import { Mathematics } from '@tiptap/extension-mathematics'
 
-import { ImageUpload } from './tiptap-extension/ImageUpload'
-import type { UploadFn, MathType, ToolbarConfig, ToolbarItem } from './types'
-import { DEFAULT_TOOLBAR_CONFIG } from './types/toolbar'
-
-const lowlight = createLowlight(common)
-
-import UndoRedoButton from './tiptap-ui/UndoRedoButton'
-import TextStyleButton from './tiptap-ui/TextStyleButton'
-import TextAlignButton from './tiptap-ui/TextAlignButton'
-import ListButton from './tiptap-ui/ListButton'
-import ImageButton from './tiptap-ui/ImageButton'
-import TableButton from './tiptap-ui/TableButton'
-import TableControls from './tiptap-ui/TableControls'
-import MathButton from './tiptap-ui/MathButton'
-import MathEditDialog from './tiptap-ui/MathEditDialog'
-import ImageControls from './tiptap-ui/ImageControls'
-import CodeBlockButton from './tiptap-ui/CodeBlockButton'
 import BubbleMenuBar from './tiptap-ui/BubbleMenuBar'
+import type { FeaturePlugin } from './types/plugin'
 
-import 'katex/dist/katex.min.css'
 import './editor.scss'
 
 export default defineComponent({
@@ -37,62 +15,21 @@ export default defineComponent({
   props: {
     modelValue: { type: String, default: '' },
     placeholder: { type: String, default: '请输入内容...' },
-    upload: { type: Function as PropType<UploadFn>, default: undefined },
     readonly: { type: Boolean, default: false },
-    toolbar: { type: Array as PropType<ToolbarConfig>, default: undefined },
+    features: { type: Array as PropType<FeaturePlugin[]>, default: () => [] },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    // 按钮组件映射表
-    const TOOLBAR_COMPONENT_MAP: Record<string, Component> = {
-      'undo-redo': UndoRedoButton,
-      'text-style': TextStyleButton,
-      'code-block': CodeBlockButton,
-      'list': ListButton,
-      'text-align': TextAlignButton,
-      'image': ImageButton,
-      'table': TableButton,
-      'math': MathButton,
-    }
-
-    // 工具栏配置
-    const toolbarConfig = computed(() => props.toolbar ?? DEFAULT_TOOLBAR_CONFIG)
-
-    // 渲染工具栏项
-    const renderToolbarItem = (item: ToolbarItem, index: number) => {
-      // 分隔符
-      if (item === '|') {
-        return <div key={`separator-${index}`} class="tiptap-separator" />
-      }
-
-      // 自定义组件
-      if (typeof item === 'object' && item.type === 'custom') {
-        const CustomComponent = item.component as any
-        return <CustomComponent key={item.key ?? `custom-${index}`} />
-      }
-
-      // 内置按钮组
-      const BuiltinComponent = TOOLBAR_COMPONENT_MAP[item as string] as any
-      return BuiltinComponent ? <BuiltinComponent key={item} /> : null
-    }
-
-    const mathEditVisible = ref(false)
-    const mathEditLatex = ref('')
-    const mathEditPos = ref<number | null>(null)
-    const mathEditType = ref<MathType>('inline')
-
     const isReadonly = computed(() => props.readonly ?? false)
-
-    const openMathDialog = (opts: { latex?: string; pos?: number | null; type?: MathType } = {}) => {
-      if (isReadonly.value) return
-      mathEditLatex.value = opts.latex ?? ''
-      mathEditPos.value = opts.pos ?? null
-      mathEditType.value = opts.type ?? 'inline'
-      mathEditVisible.value = true
-    }
-
-    provide('openMathDialog', openMathDialog)
     provide('readonly', isReadonly)
+
+    const installed = props.features.map(plugin => ({
+      plugin,
+      result: plugin.install({
+        readonly: isReadonly,
+        provide: (key, value) => provide(key, value),
+      }),
+    }))
 
     const editor = useEditor({
       content: props.modelValue,
@@ -105,50 +42,11 @@ export default defineComponent({
             enableClickSelection: true,
           },
         }),
-        Placeholder.configure({
-          placeholder: props.placeholder,
-        }),
-        CodeBlockLowlight.configure({
-          lowlight,
-          defaultLanguage: 'plaintext',
-        }),
+        Placeholder.configure({ placeholder: props.placeholder }),
         TextAlign.configure({ types: ['heading', 'paragraph'] }),
         TaskList,
         TaskItem.configure({ nested: true }),
-        ImageWithAlign.configure({
-          allowBase64: true,
-          resize: {
-            enabled: true,
-            directions: [
-              'top',
-              'right',
-              'bottom',
-              'left',
-              'top-right',
-              'top-left',
-              'bottom-right',
-              'bottom-left',
-            ],
-            minWidth: 50,
-            minHeight: 50,
-            alwaysPreserveAspectRatio: false,
-          },
-        }),
-        ImageUpload.configure({
-          ...(props.upload ? { upload: props.upload } : {}),
-        }),
-        Table.configure({ resizable: true }),
-        TableRow,
-        TableHeader,
-        TableCell,
-        Mathematics.configure({
-          inlineOptions: {
-            onClick: (node, pos) => openMathDialog({ latex: node.attrs.latex, pos, type: 'inline' }),
-          },
-          blockOptions: {
-            onClick: (node, pos) => openMathDialog({ latex: node.attrs.latex, pos, type: 'block' }),
-          },
-        }),
+        ...installed.flatMap(({ result }) => result.extensions),
       ],
       onUpdate: ({ editor: e }) => {
         emit('update:modelValue', e.getHTML())
@@ -171,22 +69,19 @@ export default defineComponent({
       <div class="tiptap-editor">
         {!props.readonly && (
           <div class="tiptap-toolbar">
-            {toolbarConfig.value.map((item, index) => renderToolbarItem(item, index))}
+            {installed.map(({ plugin }) => {
+              const Btn = plugin.toolbarComponent as any
+              return Btn ? <Btn key={plugin.name} /> : null
+            })}
           </div>
         )}
         <EditorContent class="tiptap-content" editor={editor.value} />
         <BubbleMenuBar />
-        <TableControls />
-        <ImageControls />
-        <MathEditDialog
-          visible={mathEditVisible.value}
-          latex={mathEditLatex.value}
-          pos={mathEditPos.value}
-          type={mathEditType.value}
-          onUpdate:visible={(val: boolean) => { mathEditVisible.value = val }}
-        />
+        {installed.map(({ plugin, result }) => {
+          const Control = result.controlComponent as any
+          return Control ? <Control key={`${plugin.name}-control`} /> : null
+        })}
       </div>
     )
   },
 })
-

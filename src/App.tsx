@@ -1,5 +1,6 @@
 import { defineComponent, ref } from 'vue'
 import TiptapEditor from './TiptapEditor'
+import { UndoRedoFeature, TextStyleFeature, TextAlignFeature, ListFeature, CodeBlockFeature, TableFeature, MathFeature, ImageFeature, SeparatorFeature } from './index'
 
 export default defineComponent({
   name: 'App',
@@ -115,10 +116,24 @@ export default defineComponent({
 <p style="text-align: center"><em>使用工具栏可以编辑所有元素，选中文本时会出现气泡菜单</em></p>
 `)
 
+    const features = [
+      UndoRedoFeature,
+      TextStyleFeature,
+      SeparatorFeature,
+      TextAlignFeature,
+      ListFeature,
+      CodeBlockFeature,
+      SeparatorFeature,
+      TableFeature,
+      MathFeature,
+      ImageFeature(),
+    ]
+
     return () => (
       <TiptapEditor
         modelValue={content.value}
         onUpdate:modelValue={(val: string) => { content.value = val }}
+        features={features}
       />
     )
   },
