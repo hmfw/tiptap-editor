@@ -1,0 +1,30 @@
+.tiptap-math-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tiptap-math-preview {
+  min-height: 56px;
+  padding: 12px 16px;
+  background: var(--el-fill-color-light);
+  border-radius: 4px;
+  text-align: center;
+  overflow-x: auto;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #eee;
+  }
+
+  &--empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__placeholder {
+    color: var(--el-text-color-placeholder);
+    font-size: 13px;
+  }
+}

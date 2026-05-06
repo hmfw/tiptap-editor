@@ -1,5 +1,6 @@
 import { defineComponent, ref, computed } from 'vue'
 import { nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
+import './ImageUploadView.scss'
 
 interface FileItem {
   id: string

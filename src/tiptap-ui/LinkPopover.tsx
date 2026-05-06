@@ -1,4 +1,4 @@
-import { defineComponent, inject, ref, watch, nextTick, type ShallowRef } from 'vue'
+import { defineComponent, inject, ref, type ShallowRef } from 'vue'
 import type { Editor } from '@tiptap/core'
 import { ElPopover, ElInput, ElButton, ElTooltip } from 'element-plus'
 
@@ -7,6 +7,7 @@ import CornerDownLeftIcon from '../tiptap-icons/CornerDownLeftIcon'
 import ExternalLinkIcon from '../tiptap-icons/ExternalLinkIcon'
 import TrashIcon from '../tiptap-icons/TrashIcon'
 import IconButton from '../components/IconButton'
+import './LinkPopover.scss'
 
 export default defineComponent({
   name: 'LinkPopover',
@@ -14,26 +15,10 @@ export default defineComponent({
     const editor = inject<ShallowRef<Editor | undefined>>('editor')
     const isOpen = ref(false)
     const url = ref('')
-    let isSettingLink = false
-
-    // Auto-open and pre-fill when cursor moves into an existing link
-    watch(
-      () => editor?.value?.isActive('link'),
-      (active) => {
-        if (isSettingLink) return
-        if (active) {
-          url.value = editor?.value?.getAttributes('link').href ?? ''
-          nextTick(() => {
-            isOpen.value = true
-          })
-        }
-      },
-    )
 
     const setLink = () => {
       const e = editor?.value
       if (!e || !url.value) return
-      isSettingLink = true
 
       const { empty } = e.state.selection
       let chain = e.chain().focus().extendMarkRange('link').setLink({ href: url.value })
@@ -43,21 +28,14 @@ export default defineComponent({
       chain.run()
 
       isOpen.value = false
-      nextTick(() => {
-        isSettingLink = false
-      })
     }
 
     const removeLink = () => {
       const e = editor?.value
       if (!e) return
-      isSettingLink = true
       e.chain().focus().extendMarkRange('link').unsetLink().run()
       url.value = ''
       isOpen.value = false
-      nextTick(() => {
-        isSettingLink = false
-      })
     }
 
     const openLink = () => {
@@ -91,7 +69,7 @@ export default defineComponent({
           width={300}
           trigger="click"
           showArrow={false}
-          popperClass="link-popover-popper"
+          popperClass="tiptap-link-popover-popper"
           offset={6}
         >
           {{
@@ -100,12 +78,12 @@ export default defineComponent({
                 <IconButton
                   tooltip="链接"
                   icon={LinkIcon}
-                  class={['tiptap-button', { 'is-active': isActive }]}
+                  isActive={isActive}
                 />
               </span>
             ),
             default: () => (
-              <div class="link-popover-inner">
+              <div class="tiptap-link-popover-inner">
                 <ElInput
                   modelValue={url.value}
                   onUpdate:modelValue={handleUrlInput}
@@ -115,7 +93,7 @@ export default defineComponent({
                   autofocus
                   onKeydown={handleKeyDown}
                 />
-                <div class="link-popover-actions">
+                <div class="tiptap-link-popover-actions">
                   <ElTooltip content="确认" showArrow={false} offset={4}>
                     <ElButton
                       text

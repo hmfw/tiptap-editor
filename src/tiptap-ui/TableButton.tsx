@@ -2,6 +2,7 @@ import { defineComponent, inject, ref, type Ref } from 'vue'
 import type { Editor } from '@tiptap/core'
 import { ElPopover, ElButton, ElTooltip } from 'element-plus'
 import TableIcon from '../tiptap-icons/TableIcon'
+import './TableButton.scss'
 
 const COLS = 8
 const ROWS = 8
@@ -38,7 +39,7 @@ export default defineComponent({
         v-model:visible={visible.value}
         trigger="click"
         placement="bottom-start"
-        popperClass="table-picker-popper"
+        popperClass="tiptap-table-picker-popper"
         width="auto"
         showArrow={false}
         v-slots={{
@@ -55,15 +56,15 @@ export default defineComponent({
             </span>
           ),
           default: () => (
-              <div class="table-picker">
-                <div class="table-picker-grid" onMouseleave={onGridLeave}>
+              <div class="tiptap-table-picker">
+                <div class="tiptap-table-picker-grid" onMouseleave={onGridLeave}>
                   {Array.from({ length: ROWS }, (_, r) => (
-                    <div key={r} class="table-picker-row">
+                    <div key={r} class="tiptap-table-picker-row">
                       {Array.from({ length: COLS }, (_, c) => (
                         <div
                           key={c}
                           class={[
-                            'table-picker-cell',
+                            'tiptap-table-picker-cell',
                             { 'is-active': c < hoverCol.value && r < hoverRow.value },
                           ]}
                           onMouseenter={() => onCellHover(c + 1, r + 1)}
@@ -73,13 +74,13 @@ export default defineComponent({
                     </div>
                   ))}
                 </div>
-                <div class="table-picker-footer">
-                  <div class="table-picker-counter">
+                <div class="tiptap-table-picker-footer">
+                  <div class="tiptap-table-picker-counter">
                     <span>列</span>
                     <span>{hoverCol.value || 1}</span>
                   </div>
-                  <span class="table-picker-x">x</span>
-                  <div class="table-picker-counter">
+                  <span class="tiptap-table-picker-x">x</span>
+                  <div class="tiptap-table-picker-counter">
                     <span>行</span>
                     <span>{hoverRow.value || 1}</span>
                   </div>

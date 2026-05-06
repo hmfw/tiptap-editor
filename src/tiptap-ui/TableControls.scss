@@ -1,0 +1,50 @@
+.tiptap-table-controls {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+
+  .tiptap-table-btn {
+    position: absolute;
+    pointer-events: all;
+    border-radius: 6px;
+    background: #f0f0f0;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+    padding: 0;
+
+    &:hover {
+      background: #e5e5e5;
+      border-color: #ccc;
+    }
+
+    &.tiptap-table-btn--col {
+      width: 36px;
+      height: 16px;
+    }
+
+    &.tiptap-table-btn--row {
+      width: 16px;
+      height: 36px;
+    }
+
+    &.tiptap-table-btn--add {
+      width: 20px;
+      height: 20px;
+      color: #555;
+
+      &:hover {
+        background: #e5e5e5;
+      }
+    }
+  }
+}

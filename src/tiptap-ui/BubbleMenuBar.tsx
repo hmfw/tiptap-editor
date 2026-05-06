@@ -6,6 +6,8 @@ import BoldIcon from '../tiptap-icons/BoldIcon'
 import ItalicIcon from '../tiptap-icons/ItalicIcon'
 import StrikeIcon from '../tiptap-icons/StrikeIcon'
 import UnderlineIcon from '../tiptap-icons/UnderlineIcon'
+import LinkPopover from './LinkPopover'
+import './BubbleMenuBar.scss'
 
 export default defineComponent({
   name: 'BubbleMenuBar',
@@ -33,7 +35,7 @@ export default defineComponent({
             return true
           }}
         >
-          <div class="bubble-menu-content">
+          <div class="tiptap-bubble-menu">
             <IconButton
               icon={BoldIcon}
               tooltip="粗体"
@@ -58,6 +60,7 @@ export default defineComponent({
               isActive={editor.value.isActive('underline')}
               onClick={() => editor.value?.chain().focus().toggleUnderline().run()}
             />
+            <LinkPopover />
           </div>
         </BubbleMenu>
       )

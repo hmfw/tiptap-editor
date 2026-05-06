@@ -3,6 +3,7 @@ import type { Editor } from '@tiptap/core'
 import { ElDialog, ElInput, ElButton, ElRadioGroup, ElRadioButton } from 'element-plus'
 import katex from 'katex'
 import type { MathType } from '../types'
+import './MathEditDialog.scss'
 
 export default defineComponent({
   name: 'MathEditDialog',
@@ -78,7 +79,7 @@ export default defineComponent({
           ),
         }}
       >
-        <div class="math-dialog">
+        <div class="tiptap-math-dialog">
           <ElRadioGroup modelValue={editType.value} onUpdate:modelValue={(val: any) => { editType.value = val as MathType }}>
             <ElRadioButton value="inline">行内公式</ElRadioButton>
             <ElRadioButton value="block">块级公式</ElRadioButton>
@@ -90,9 +91,9 @@ export default defineComponent({
             placeholder="请输入 LaTeX 公式，例如：E=mc^2"
             onUpdate:modelValue={(val: string) => { editLatex.value = val }}
           />
-          <div class={['math-preview', { 'math-preview--empty': !preview.value }]}>
+          <div class={['tiptap-math-preview', { 'tiptap-math-preview--empty': !preview.value }]}>
             {!preview.value ? (
-              <span class="math-preview__placeholder">预览将在此处显示</span>
+              <span class="tiptap-math-preview__placeholder">预览将在此处显示</span>
             ) : (
               <div v-html={preview.value} />
             )}

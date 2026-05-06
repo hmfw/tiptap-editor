@@ -4,6 +4,7 @@ import { NodeSelection } from '@tiptap/pm/state'
 import AlignLeftIcon from '../tiptap-icons/AlignLeftIcon'
 import AlignCenterIcon from '../tiptap-icons/AlignCenterIcon'
 import AlignRightIcon from '../tiptap-icons/AlignRightIcon'
+import './ImageControls.scss'
 
 const ALIGN_BUTTONS = [
   { value: 'left', title: '居左', Icon: AlignLeftIcon },
@@ -152,11 +153,11 @@ export default defineComponent({
       }
 
       return (
-        <div class="image-controls" style={style}>
+        <div class="tiptap-image-controls" style={style}>
           {!isRO && ALIGN_BUTTONS.map(({ value, title, Icon }) => (
             <button
               key={value}
-              class={['image-controls-btn', align === value && 'is-active']}
+              class={['tiptap-image-controls-btn', align === value && 'is-active']}
               title={title}
               onMousedown={preventDefault}
               onClick={() => ed.chain().focus().updateAttributes('image', { align: value }).run()}
@@ -165,10 +166,10 @@ export default defineComponent({
             </button>
           ))}
 
-          {!isRO && <span class="image-controls-separator" />}
+          {!isRO && <span class="tiptap-image-controls-separator" />}
 
           <button
-            class="image-controls-btn"
+            class="tiptap-image-controls-btn"
             title="下载"
             onMousedown={preventDefault}
             onClick={() => downloadImage(src)}
@@ -177,7 +178,7 @@ export default defineComponent({
           </button>
           {!isRO && (
             <button
-              class="image-controls-btn"
+              class="tiptap-image-controls-btn"
               title="重新上传"
               onMousedown={preventDefault}
               onClick={() =>
@@ -194,7 +195,7 @@ export default defineComponent({
           )}
           {!isRO && (
             <button
-              class="image-controls-btn"
+              class="tiptap-image-controls-btn"
               title="删除"
               onMousedown={preventDefault}
               onClick={() =>

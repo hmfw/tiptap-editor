@@ -2,6 +2,7 @@ import { defineComponent, inject, ref, watchEffect, type Ref, type ComputedRef }
 import type { Editor } from '@tiptap/core'
 import type { Node as PMNode } from '@tiptap/pm/model'
 import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
+import './TableControls.scss'
 
 interface CellInfo {
   cell: HTMLElement
@@ -76,7 +77,7 @@ export default defineComponent({
       const ed = editor?.value
       // Remove class from previous cell
       if (prevCell.value) {
-        prevCell.value.classList.remove('tcc-cell-focused')
+        prevCell.value.classList.remove('tiptap-cell-focused')
         prevCell.value = null
       }
       if (!ed) {
@@ -86,7 +87,7 @@ export default defineComponent({
       const newInfo = getCellInfo(ed)
       info.value = newInfo
       if (newInfo) {
-        newInfo.cell.classList.add('tcc-cell-focused')
+        newInfo.cell.classList.add('tiptap-cell-focused')
         prevCell.value = newInfo.cell
       }
     }
@@ -100,7 +101,7 @@ export default defineComponent({
         ed.off('selectionUpdate', updateControls)
         ed.off('transaction', updateControls)
         if (prevCell.value) {
-          prevCell.value.classList.remove('tcc-cell-focused')
+          prevCell.value.classList.remove('tiptap-cell-focused')
           prevCell.value = null
         }
       })
@@ -237,7 +238,7 @@ export default defineComponent({
       const ed = editor?.value
 
       return (
-        <div class="table-cell-controls">
+        <div class="tiptap-table-controls">
           {/* Column controls button */}
           <ElDropdown
             trigger="click"
@@ -268,7 +269,7 @@ export default defineComponent({
               ),
             }}
           >
-            <button class="tcc-btn tcc-btn--col">
+            <button class="tiptap-table-btn tiptap-table-btn--col">
               <DotsHIcon />
             </button>
           </ElDropdown>
@@ -303,7 +304,7 @@ export default defineComponent({
               ),
             }}
           >
-            <button class="tcc-btn tcc-btn--row">
+            <button class="tiptap-table-btn tiptap-table-btn--row">
               <DotsVIcon />
             </button>
           </ElDropdown>
@@ -311,7 +312,7 @@ export default defineComponent({
           {/* Add column button (rightmost cell) */}
           {isLastCol && (
             <button
-              class="tcc-btn tcc-btn--add"
+              class="tiptap-table-btn tiptap-table-btn--add"
               style={addColBtnStyle}
               onClick={() => ed?.chain().focus().addColumnAfter().run()}
             >
@@ -322,7 +323,7 @@ export default defineComponent({
           {/* Add row button (bottommost cell) */}
           {isLastRow && (
             <button
-              class="tcc-btn tcc-btn--add"
+              class="tiptap-table-btn tiptap-table-btn--add"
               style={addRowBtnStyle}
               onClick={() => ed?.chain().focus().addRowAfter().run()}
             >
