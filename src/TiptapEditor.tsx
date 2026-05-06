@@ -7,6 +7,7 @@ import { Placeholder } from '@tiptap/extension-placeholder'
 
 import BubbleMenuBar from './tiptap-ui/BubbleMenuBar'
 import type { FeaturePlugin } from './types/plugin'
+import type { UploadFn } from './types'
 
 import './editor.scss'
 
@@ -16,6 +17,7 @@ export default defineComponent({
     modelValue: { type: String, default: '' },
     placeholder: { type: String, default: '请输入内容...' },
     readonly: { type: Boolean, default: false },
+    upload: { type: Function as PropType<UploadFn>, default: undefined },
     features: { type: Array as PropType<FeaturePlugin[]>, default: () => [] },
   },
   emits: ['update:modelValue'],
@@ -28,6 +30,7 @@ export default defineComponent({
       result: plugin.install({
         readonly: isReadonly,
         provide: (key, value) => provide(key, value),
+        upload: props.upload,
       }),
     }))
 

@@ -126,7 +126,7 @@ export default defineComponent({
       SeparatorFeature,
       TableFeature,
       MathFeature,
-      ImageFeature(),
+      ImageFeature,
     ]
 
     return () => (

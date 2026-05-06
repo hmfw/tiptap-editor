@@ -51,7 +51,7 @@ const content = ref('')
       SeparatorFeature,
       TableFeature,
       MathFeature,
-      ImageFeature(),
+      ImageFeature,
     ]"
   />
 </template>
@@ -63,7 +63,7 @@ const content = ref('')
 |------|------|--------|------|
 | `modelValue` | `string` | `''` | 编辑器内容（HTML 格式），支持 `v-model` 双向绑定 |
 | `placeholder` | `string` | `'请输入内容...'` | 编辑器占位符文本 |
-| `readonly` | `boolean` | `false` | 只读模式：隐藏工具栏，禁止编辑 |
+| `upload` | `(file: File) => Promise<string>` | `undefined` | 图片上传函数，传给 `ImageFeature` 使用，不传则默认转为 Base64 |
 | `features` | `FeaturePlugin[]` | `[]` | 功能插件列表，决定工具栏内容和注册的扩展 |
 
 ## Feature Plugins
@@ -77,27 +77,28 @@ const content = ref('')
 | `CodeBlockFeature` | 代码块（含语法高亮） | `CodeBlockFeature` |
 | `TableFeature` | 表格（含行列增删、移动） | `TableFeature` |
 | `MathFeature` | 数学公式（内联 / 块级，基于 KaTeX） | `MathFeature` |
-| `ImageFeature` | 图片插入（支持自定义上传，默认 Base64） | `ImageFeature(uploadFn?)` |
+| `ImageFeature` | 图片插入（支持自定义上传，默认 Base64） | `ImageFeature` |
 | `SeparatorFeature` | 工具栏分隔符 | `SeparatorFeature` |
 
-`ImageFeature` 是工厂函数，接受可选的 `upload` 参数：
+`upload` 通过 `TiptapEditor` 的 `upload` prop 传入，`ImageFeature` 会自动从 context 中读取：
+
+```vue
+<TiptapEditor v-model="content" :upload="myUpload" :features="[..., ImageFeature]" />
+```
 
 ```typescript
-import { ImageFeature, type UploadFn } from '@mario9/tiptap-editor'
+import { type UploadFn } from '@mario9/tiptap-editor'
 
-const upload: UploadFn = async (file) => {
+const myUpload: UploadFn = async (file) => {
   const formData = new FormData()
   formData.append('file', file)
   const res = await fetch('/api/upload', { method: 'POST', body: formData })
   const data = await res.json()
   return data.url
 }
-
-// 不传则默认转为 Base64
-ImageFeature()
-// 传入自定义上传函数
-ImageFeature(upload)
 ```
+
+不传 `upload` 时图片默认转为 Base64。
 
 ## 自定义 Feature Plugin
 
@@ -117,7 +118,7 @@ export const MyFeature: FeaturePlugin = {
 }
 ```
 
-`install()` 接收 `PluginInstallContext`（含 `readonly` 和 `provide`），返回 `{ extensions, controlComponent? }`。
+`install()` 接收 `PluginInstallContext`（含 `readonly`、`provide`、`upload`），返回 `{ extensions, controlComponent? }`。
 
 ## 内置功能（始终启用）
 

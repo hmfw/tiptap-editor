@@ -41,6 +41,8 @@ interface FeaturePlugin {
 - `readonly`（`ComputedRef<boolean>`）：只读状态
 - `openMathDialog`：由 `MathFeature.install()` 通过 `ctx.provide()` 注册
 
+`PluginInstallContext` 包含 `readonly`、`provide`、`upload`（来自 `TiptapEditor` 的 `upload` prop）。
+
 工具栏中的所有子组件通过 `inject('editor')` 获取编辑器实例来执行命令。
 
 **Feature 文件**（`src/features/`）：
@@ -48,7 +50,7 @@ interface FeaturePlugin {
 - `CodeBlockFeature`：注册 `CodeBlockLowlight`（StarterKit 中禁用了默认 codeBlock）
 - `TableFeature`：注册 Table/TableRow/TableHeader/TableCell，controlComponent 为 `TableControls`
 - `MathFeature`：`install()` 内创建 per-instance refs，provide `openMathDialog`，返回闭包 `MathDialogWrapper` 作为 controlComponent
-- `ImageFeature`：工厂函数，接受可选 `upload` 参数，controlComponent 为 `ImageControls`
+- `ImageFeature`：const，`install()` 从 `ctx.upload` 读取上传函数，controlComponent 为 `ImageControls`
 - `SeparatorFeature`：工具栏分隔符伪插件
 
 **自定义扩展**（`src/tiptap-extension/`）：
