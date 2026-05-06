@@ -57,6 +57,57 @@ const content = ref('')
 </template>
 ```
 
+## 常见场景
+
+### 最小化配置
+
+只引入用到的 feature，未引入的模块不会进入消费方 bundle：
+
+```vue
+<TiptapEditor
+  v-model="content"
+  :features="[UndoRedoFeature, TextStyleFeature]"
+/>
+```
+
+### 只读模式
+
+```vue
+<TiptapEditor v-model="content" :readonly="true" />
+```
+
+`readonly` 时工具栏隐藏，编辑器不可编辑，图片控件仅保留下载，数学公式不可点击编辑。
+
+### 获取 / 设置内容
+
+`v-model` 绑定的是 HTML 字符串，直接读写即可：
+
+```typescript
+const content = ref('<p>初始内容</p>')
+
+// 读取当前内容
+console.log(content.value)
+
+// 程序化设置内容
+content.value = '<h1>新标题</h1><p>新内容</p>'
+```
+
+### 工具栏顺序
+
+`features` 数组的顺序即工具栏按钮的顺序，用 `SeparatorFeature` 插入分隔符：
+
+```typescript
+:features="[
+  UndoRedoFeature,     // 撤销重做
+  SeparatorFeature,    // ——
+  TextStyleFeature,    // 粗体/斜体/下划线/删除线/链接
+  TextAlignFeature,    // 对齐
+  SeparatorFeature,    // ——
+  TableFeature,        // 表格
+  ImageFeature,        // 图片
+]"
+```
+
 ## Props
 
 | 属性 | 类型 | 默认值 | 说明 |
@@ -102,7 +153,9 @@ const myUpload: UploadFn = async (file) => {
 
 ## 自定义 Feature Plugin
 
-实现 `FeaturePlugin` 接口即可创建自定义功能插件：
+实现 `FeaturePlugin` 接口即可创建自定义功能插件。
+
+### 基础示例
 
 ```typescript
 import type { FeaturePlugin } from '@mario9/tiptap-editor'
@@ -116,6 +169,55 @@ export const MyFeature: FeaturePlugin = {
   }),
   toolbarComponent: MyButton,
 }
+```
+
+### 含浮层和状态共享的完整示例
+
+如果 feature 需要一个持久渲染的浮层（如对话框），并且工具栏按钮需要触发它，使用 `controlComponent` + `ctx.provide`：
+
+```typescript
+import { ref, defineComponent, h } from 'vue'
+import type { FeaturePlugin } from '@mario9/tiptap-editor'
+import MyExtension from './MyExtension'
+import MyToolbarButton from './MyToolbarButton.vue'
+import MyControlPanel from './MyControlPanel.vue'
+
+export const MyFeature: FeaturePlugin = {
+  name: 'my-feature',
+
+  install(ctx) {
+    // per-instance 状态（多个编辑器实例互不干扰）
+    const isOpen = ref(false)
+    const openPanel = () => { isOpen.value = true }
+
+    // 通过 provide 共享给工具栏按钮
+    ctx.provide('openMyPanel', openPanel)
+
+    // 闭包组件，捕获 per-instance 状态
+    const ControlWrapper = defineComponent({
+      setup: () => () => h(MyControlPanel, {
+        visible: isOpen.value,
+        'onUpdate:visible': (v: boolean) => { isOpen.value = v },
+      }),
+    })
+
+    return {
+      extensions: [MyExtension],
+      controlComponent: ControlWrapper,  // 渲染在编辑器内容区之后
+    }
+  },
+
+  toolbarComponent: MyToolbarButton,
+}
+```
+
+工具栏按钮通过 `inject` 获取共享函数：
+
+```typescript
+// MyToolbarButton.vue
+import { inject } from 'vue'
+
+const openMyPanel = inject<() => void>('openMyPanel')
 ```
 
 `install()` 接收 `PluginInstallContext`（含 `readonly`、`provide`、`upload`），返回 `{ extensions, controlComponent? }`。
