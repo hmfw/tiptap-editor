@@ -2,6 +2,14 @@
 
 基于 Tiptap + Vue 3 的富文本编辑器组件，支持 Feature Plugin 架构，消费方可按需引入功能模块实现 tree-shaking。
 
+## 效果预览
+
+![编辑器全貌](docs/screenshots/screenshot-overview.png)
+
+![代码块与表格](docs/screenshots/screenshot-features.png)
+
+![数学公式](docs/screenshots/screenshot-math.png)
+
 ## 安装
 
 ```bash
@@ -69,6 +77,8 @@ const content = ref('')
   :features="[UndoRedoFeature, TextStyleFeature]"
 />
 ```
+
+![最小化配置工具栏](docs/screenshots/screenshot-minimal.png)
 
 ### 只读模式
 
