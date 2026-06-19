@@ -4,11 +4,11 @@
 
 ## 效果预览
 
-![编辑器全貌](docs/screenshots/screenshot-overview.png)
+![编辑器全貌](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-overview.png)
 
-![代码块与表格](docs/screenshots/screenshot-features.png)
+![代码块与表格](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-features.png)
 
-![数学公式](docs/screenshots/screenshot-math.png)
+![数学公式](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-math.png)
 
 ## 安装
 
@@ -78,7 +78,7 @@ const content = ref('')
 />
 ```
 
-![最小化配置工具栏](docs/screenshots/screenshot-minimal.png)
+![最小化配置工具栏](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-minimal.png)
 
 ### 只读模式
 
