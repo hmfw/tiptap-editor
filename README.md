@@ -4,11 +4,7 @@
 
 ## 在线演示
 
-- 🚀 [jsDelivr CDN（国内推荐）](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@gh-pages/index.html)
-- 🆎 [Statically CDN（国内备用）](https://cdn.statically.io/gh/hmfw/tiptap-editor/gh-pages/index.html)
-- 🌍 [GitHub Pages（国际访问）](https://hmfw.github.io/tiptap-editor/)
-
-> 多个链接均指向同一份演示，按访问速度自选。
+🎮 [点击体验在线演示](https://hmfw.github.io/tiptap-editor/)
 
 ## 效果预览
 
