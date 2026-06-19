@@ -2,13 +2,25 @@
 
 基于 Tiptap + Vue 3 的富文本编辑器组件，支持 Feature Plugin 架构，消费方可按需引入功能模块实现 tree-shaking。
 
+## 在线演示
+
+🎮 [点击体验在线演示](https://github.com/hmfw/tiptap-editor) | 📖 [查看完整文档](https://github.com/hmfw/tiptap-editor#readme)
+
 ## 效果预览
 
-![编辑器全貌](docs/screenshots/screenshot-overview.png)
+> 💡 如果图片无法显示，请访问 [GitHub 仓库](https://github.com/hmfw/tiptap-editor#效果预览)查看
 
-![代码块与表格](docs/screenshots/screenshot-features.png)
+### 编辑器全貌
 
-![数学公式](docs/screenshots/screenshot-math.png)
+![编辑器全貌](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-overview.png)
+
+### 代码块与表格
+
+![代码块与表格](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-features.png)
+
+### 数学公式
+
+![数学公式](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-math.png)
 
 ## 安装
 
@@ -78,7 +90,7 @@ const content = ref('')
 />
 ```
 
-![最小化配置工具栏](docs/screenshots/screenshot-minimal.png)
+![最小化配置工具栏](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-minimal.png)
 
 ### 只读模式
 
