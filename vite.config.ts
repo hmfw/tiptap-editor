@@ -48,6 +48,7 @@ export default defineConfig(({ mode }) => {
   }
 
   return {
+    base: '/tiptap-editor/',
     plugins: [vue(), vueJsx(), ElementPlus({})],
     build: {
       outDir: 'dist-app',

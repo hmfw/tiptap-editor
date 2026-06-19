@@ -2,6 +2,14 @@
 
 基于 Tiptap + Vue 3 的富文本编辑器组件，支持 Feature Plugin 架构，消费方可按需引入功能模块实现 tree-shaking。
 
+## 在线演示
+
+- 🚀 [jsDelivr CDN（国内推荐）](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@gh-pages/index.html)
+- 🆎 [Statically CDN（国内备用）](https://cdn.statically.io/gh/hmfw/tiptap-editor/gh-pages/index.html)
+- 🌍 [GitHub Pages（国际访问）](https://hmfw.github.io/tiptap-editor/)
+
+> 多个链接均指向同一份演示，按访问速度自选。
+
 ## 效果预览
 
 ![编辑器全貌](https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@main/docs/screenshots/screenshot-overview.png)
@@ -14,12 +22,6 @@
 
 ```bash
 pnpm add @mario9/tiptap-editor
-```
-
-安装 peer dependencies：
-
-```bash
-pnpm add vue element-plus katex lowlight @tiptap/core @tiptap/starter-kit @tiptap/vue-3 @tiptap/pm @tiptap/extensions @tiptap/extension-bubble-menu @tiptap/extension-code-block-lowlight @tiptap/extension-highlight @tiptap/extension-horizontal-rule @tiptap/extension-image @tiptap/extension-list @tiptap/extension-mathematics @tiptap/extension-placeholder @tiptap/extension-subscript @tiptap/extension-superscript @tiptap/extension-table @tiptap/extension-text-align @tiptap/extension-typography
 ```
 
 ## 快速开始
