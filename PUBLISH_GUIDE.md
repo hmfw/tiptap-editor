@@ -144,7 +144,7 @@ git commit -m "chore: 恢复 GitHub 版本 README" || true
 git push
 
 echo "🎉 发布成功！"
-echo "🔗 查看: https://www.npmjs.com/package/@mario9/tiptap-editor"
+echo "🔗 查看: https://www.npmjs.com/package/@hmfw/tiptap-editor"
 ```
 
 使用：
@@ -169,7 +169,7 @@ chmod +x publish.sh
 
 ### 1. 检查 npm 官网
 ```
-https://www.npmjs.com/package/@mario9/tiptap-editor
+https://www.npmjs.com/package/@hmfw/tiptap-editor
 ```
 
 验证：
@@ -183,16 +183,16 @@ https://www.npmjs.com/package/@mario9/tiptap-editor
 mkdir test-install
 cd test-install
 npm init -y
-npm install @mario9/tiptap-editor@1.1.0
+npm install @hmfw/tiptap-editor@1.1.0
 
 # 检查安装
-ls node_modules/@mario9/tiptap-editor/dist/
+ls node_modules/@hmfw/tiptap-editor/dist/
 ```
 
 ### 3. 检查 jsDelivr CDN
 图片应该可以通过 CDN 访问：
 ```
-https://cdn.jsdelivr.net/npm/@mario9/tiptap-editor@1.1.0/README.md
+https://cdn.jsdelivr.net/npm/@hmfw/tiptap-editor@1.1.0/README.md
 ```
 
 ---
@@ -220,7 +220,7 @@ A:
 A: 
 ```bash
 # 24 小时内可以撤销
-npm unpublish @mario9/tiptap-editor@1.1.0
+npm unpublish @hmfw/tiptap-editor@1.1.0
 
 # 注意：npm 不推荐 unpublish，应该发布新版本修复
 ```

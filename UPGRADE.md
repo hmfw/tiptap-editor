@@ -38,7 +38,7 @@
 ### 升级步骤
 
 #### 对于库的消费者
-如果你的项目使用了 `@mario9/tiptap-editor`，需要更新 peer dependencies：
+如果你的项目使用了 `@hmfw/tiptap-editor`，需要更新 peer dependencies：
 
 ```bash
 # 更新所有 @tiptap 相关包到 3.27.x

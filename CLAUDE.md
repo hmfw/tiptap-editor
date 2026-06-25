@@ -17,7 +17,7 @@ TypeScript 类型检查单独运行：`pnpm exec vue-tsc --noEmit`
 
 ## 架构
 
-这是一个 Vue 3 富文本编辑器库，发布为 `@mario9/tiptap-editor`。
+这是一个 Vue 3 富文本编辑器库，发布为 `@hmfw/tiptap-editor`。
 
 **双构建模式**（`vite.config.ts`）：
 - 应用模式（`pnpm build`）：构建演示应用到 `dist-app/`

@@ -1,4 +1,4 @@
-# @mario9/tiptap-editor
+# @hmfw/tiptap-editor
 
 基于 Tiptap + Vue 3 的富文本编辑器组件，支持 Feature Plugin 架构，消费方可按需引入功能模块实现 tree-shaking。
 
@@ -17,7 +17,7 @@
 ## 安装
 
 ```bash
-pnpm add @mario9/tiptap-editor
+pnpm add @hmfw/tiptap-editor
 ```
 
 ## 快速开始
@@ -38,8 +38,8 @@ import {
   MathFeature,
   ImageFeature,
   SeparatorFeature,
-} from '@mario9/tiptap-editor'
-import '@mario9/tiptap-editor/tiptap-editor.css'
+} from '@hmfw/tiptap-editor'
+import '@hmfw/tiptap-editor/tiptap-editor.css'
 
 const content = ref('')
 </script>
@@ -146,7 +146,7 @@ content.value = '<h1>新标题</h1><p>新内容</p>'
 ```
 
 ```typescript
-import { type UploadFn } from '@mario9/tiptap-editor'
+import { type UploadFn } from '@hmfw/tiptap-editor'
 
 const myUpload: UploadFn = async (file) => {
   const formData = new FormData()
@@ -166,7 +166,7 @@ const myUpload: UploadFn = async (file) => {
 ### 基础示例
 
 ```typescript
-import type { FeaturePlugin } from '@mario9/tiptap-editor'
+import type { FeaturePlugin } from '@hmfw/tiptap-editor'
 import MyButton from './MyButton.vue'
 import MyExtension from './MyExtension'
 
@@ -185,7 +185,7 @@ export const MyFeature: FeaturePlugin = {
 
 ```typescript
 import { ref, defineComponent, h } from 'vue'
-import type { FeaturePlugin } from '@mario9/tiptap-editor'
+import type { FeaturePlugin } from '@hmfw/tiptap-editor'
 import MyExtension from './MyExtension'
 import MyToolbarButton from './MyToolbarButton.vue'
 import MyControlPanel from './MyControlPanel.vue'

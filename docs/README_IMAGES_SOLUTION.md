@@ -108,7 +108,7 @@ https://cdn.jsdelivr.net/gh/hmfw/tiptap-editor@latest/docs/screenshots/screensho
 
 2. **更新 README.md**:
 ```markdown
-![编辑器全貌](https://unpkg.com/@mario9/tiptap-editor@latest/docs/screenshots/screenshot-overview.png)
+![编辑器全貌](https://unpkg.com/@hmfw/tiptap-editor@latest/docs/screenshots/screenshot-overview.png)
 ```
 
 ### 图片 URL 格式
@@ -227,7 +227,7 @@ npm version patch
 npm publish
 
 # 访问 npm 官网查看
-# https://www.npmjs.com/package/@mario9/tiptap-editor
+# https://www.npmjs.com/package/@hmfw/tiptap-editor
 ```
 
 ### 3. 本地测试 jsDelivr
