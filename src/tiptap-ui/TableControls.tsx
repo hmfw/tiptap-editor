@@ -1,7 +1,7 @@
 import { defineComponent, inject, ref, watchEffect, type Ref, type ComputedRef } from 'vue'
 import type { Editor } from '@tiptap/core'
 import type { Node as PMNode } from '@tiptap/pm/model'
-import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
+import { Dropdown, DropdownMenu, DropdownItem } from '../ui/Dropdown'
 import './TableControls.scss'
 
 interface CellInfo {
@@ -240,7 +240,7 @@ export default defineComponent({
       return (
         <div class="tiptap-table-controls">
           {/* Column controls button */}
-          <ElDropdown
+          <Dropdown
             trigger="click"
             placement="bottom"
             style={colBtnStyle}
@@ -253,29 +253,29 @@ export default defineComponent({
             }}
             v-slots={{
               dropdown: () => (
-                <ElDropdownMenu>
-                  <ElDropdownItem command="move-left" disabled={isFirstCol}>
+                <DropdownMenu>
+                  <DropdownItem command="move-left" disabled={isFirstCol}>
                     移动列到左侧
-                  </ElDropdownItem>
-                  <ElDropdownItem command="move-right" disabled={isLastCol}>
+                  </DropdownItem>
+                  <DropdownItem command="move-right" disabled={isLastCol}>
                     移动列到右侧
-                  </ElDropdownItem>
-                  <ElDropdownItem command="insert-left">在左侧插入一列</ElDropdownItem>
-                  <ElDropdownItem command="insert-right">在右侧插入一列</ElDropdownItem>
-                  <ElDropdownItem command="delete" divided>
+                  </DropdownItem>
+                  <DropdownItem command="insert-left">在左侧插入一列</DropdownItem>
+                  <DropdownItem command="insert-right">在右侧插入一列</DropdownItem>
+                  <DropdownItem command="delete" divided>
                     删除列
-                  </ElDropdownItem>
-                </ElDropdownMenu>
+                  </DropdownItem>
+                </DropdownMenu>
               ),
             }}
           >
             <button class="tiptap-table-btn tiptap-table-btn--col">
               <DotsHIcon />
             </button>
-          </ElDropdown>
+          </Dropdown>
 
           {/* Row controls button */}
-          <ElDropdown
+          <Dropdown
             trigger="click"
             placement="right"
             style={rowBtnStyle}
@@ -288,26 +288,26 @@ export default defineComponent({
             }}
             v-slots={{
               dropdown: () => (
-                <ElDropdownMenu>
-                  <ElDropdownItem command="move-up" disabled={isFirstRow}>
+                <DropdownMenu>
+                  <DropdownItem command="move-up" disabled={isFirstRow}>
                     上移
-                  </ElDropdownItem>
-                  <ElDropdownItem command="move-down" disabled={isLastRow}>
+                  </DropdownItem>
+                  <DropdownItem command="move-down" disabled={isLastRow}>
                     下移
-                  </ElDropdownItem>
-                  <ElDropdownItem command="insert-above">在上方插入一行</ElDropdownItem>
-                  <ElDropdownItem command="insert-below">在下方插入一行</ElDropdownItem>
-                  <ElDropdownItem command="delete" divided>
+                  </DropdownItem>
+                  <DropdownItem command="insert-above">在上方插入一行</DropdownItem>
+                  <DropdownItem command="insert-below">在下方插入一行</DropdownItem>
+                  <DropdownItem command="delete" divided>
                     删除行
-                  </ElDropdownItem>
-                </ElDropdownMenu>
+                  </DropdownItem>
+                </DropdownMenu>
               ),
             }}
           >
             <button class="tiptap-table-btn tiptap-table-btn--row">
               <DotsVIcon />
             </button>
-          </ElDropdown>
+          </Dropdown>
 
           {/* Add column button (rightmost cell) */}
           {isLastCol && (

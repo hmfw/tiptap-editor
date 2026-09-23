@@ -1,4 +1,4 @@
-.tiptap-link-popover-popper.el-popper {
+.tiptap-link-popover-popper {
   padding: 6px !important;
   border-radius: 10px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
@@ -9,7 +9,7 @@
   align-items: center;
   gap: 4px;
 
-  .el-input {
+  .ui-input {
     flex: 1;
   }
 }
@@ -20,7 +20,7 @@
   gap: 2px;
   flex-shrink: 0;
 
-  .el-button {
+  .ui-button {
     padding: 6px;
     width: 28px;
     height: 28px;
@@ -31,7 +31,7 @@
     }
   }
 
-  .el-button + .el-button {
+  .ui-button + .ui-button {
     margin-left: 0;
   }
 }

@@ -1,7 +1,7 @@
 import { defineComponent, inject, type ShallowRef, type ComputedRef } from 'vue'
 import type { Editor } from '@tiptap/core'
 import { BubbleMenu } from '@tiptap/vue-3/menus'
-import IconButton from '../components/IconButton'
+import IconButton from '../ui/IconButton'
 import BoldIcon from '../tiptap-icons/BoldIcon'
 import ItalicIcon from '../tiptap-icons/ItalicIcon'
 import StrikeIcon from '../tiptap-icons/StrikeIcon'
@@ -31,6 +31,7 @@ export default defineComponent({
             const { editor: ed, from, to } = props
             if (from === to) return false
             if (ed.isActive('image')) return false
+            if (ed.isActive('imageUpload')) return false
             if (ed.isActive('table')) return false
             return true
           }}

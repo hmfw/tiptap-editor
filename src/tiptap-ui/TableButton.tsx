@@ -1,6 +1,8 @@
 import { defineComponent, inject, ref, type Ref } from 'vue'
 import type { Editor } from '@tiptap/core'
-import { ElPopover, ElButton, ElTooltip } from 'element-plus'
+import Popover from '../ui/Popover'
+import Button from '../ui/Button'
+import Tooltip from '../ui/Tooltip'
 import TableIcon from '../tiptap-icons/TableIcon'
 import './TableButton.scss'
 
@@ -35,7 +37,7 @@ export default defineComponent({
     }
 
     return () => (
-      <ElPopover
+      <Popover
         v-model:visible={visible.value}
         trigger="click"
         placement="bottom-start"
@@ -45,14 +47,14 @@ export default defineComponent({
         v-slots={{
           reference: () => (
             <span>
-              <ElTooltip content="表格" showArrow={false} offset={6} disabled={visible.value}>
-                <ElButton
+              <Tooltip content="表格" showArrow={false} offset={6} disabled={visible.value}>
+                <Button
                   text
                   class={['tiptap-button', { 'is-active': visible.value }]}
                 >
                   <TableIcon class="tiptap-button-icon" />
-                </ElButton>
-              </ElTooltip>
+                </Button>
+              </Tooltip>
             </span>
           ),
           default: () => (

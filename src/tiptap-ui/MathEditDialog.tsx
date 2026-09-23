@@ -1,6 +1,9 @@
 import { defineComponent, ref, inject, watch, computed, type PropType, type ShallowRef } from 'vue'
 import type { Editor } from '@tiptap/core'
-import { ElDialog, ElInput, ElButton, ElRadioGroup, ElRadioButton } from 'element-plus'
+import Dialog from '../ui/Dialog'
+import Input from '../ui/Input'
+import Button from '../ui/Button'
+import { RadioGroup, RadioButton } from '../ui/Radio'
 import katex from 'katex'
 import type { MathType } from '../types'
 import './MathEditDialog.scss'
@@ -59,7 +62,7 @@ export default defineComponent({
     }
 
     return () => (
-      <ElDialog
+      <Dialog
         modelValue={props.visible}
         title={isInsert.value ? '插入数学公式' : '编辑数学公式'}
         width="520px"
@@ -67,24 +70,24 @@ export default defineComponent({
         v-slots={{
           footer: () => (
             <>
-              <ElButton onClick={() => emit('update:visible', false)}>取消</ElButton>
-              <ElButton
+              <Button onClick={() => emit('update:visible', false)}>取消</Button>
+              <Button
                 type="primary"
                 disabled={!editLatex.value.trim()}
                 onClick={confirm}
               >
                 确认
-              </ElButton>
+              </Button>
             </>
           ),
         }}
       >
         <div class="tiptap-math-dialog">
-          <ElRadioGroup modelValue={editType.value} onUpdate:modelValue={(val: any) => { editType.value = val as MathType }}>
-            <ElRadioButton value="inline">行内公式</ElRadioButton>
-            <ElRadioButton value="block">块级公式</ElRadioButton>
-          </ElRadioGroup>
-          <ElInput
+          <RadioGroup modelValue={editType.value} onUpdate:modelValue={(val: any) => { editType.value = val as MathType }}>
+            <RadioButton value="inline">行内公式</RadioButton>
+            <RadioButton value="block">块级公式</RadioButton>
+          </RadioGroup>
+          <Input
             modelValue={editLatex.value}
             type="textarea"
             rows={3}
@@ -99,7 +102,7 @@ export default defineComponent({
             )}
           </div>
         </div>
-      </ElDialog>
+      </Dialog>
     )
   },
 })

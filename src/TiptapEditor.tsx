@@ -10,6 +10,7 @@ import type { FeaturePlugin } from './types/plugin'
 import type { UploadFn } from './types'
 
 import './editor.scss'
+import './ui/ui.scss'
 
 export default defineComponent({
   name: 'TiptapEditor',
@@ -43,6 +44,7 @@ export default defineComponent({
           link: {
             openOnClick: false,
             enableClickSelection: true,
+            markdownLinks: true,
           },
         }),
         Placeholder.configure({ placeholder: props.placeholder }),

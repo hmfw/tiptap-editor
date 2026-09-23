@@ -1,12 +1,15 @@
 import { defineComponent, inject, ref, type ShallowRef } from 'vue'
 import type { Editor } from '@tiptap/core'
-import { ElPopover, ElInput, ElButton, ElTooltip } from 'element-plus'
+import Popover from '../ui/Popover'
+import Input from '../ui/Input'
+import Button from '../ui/Button'
+import Tooltip from '../ui/Tooltip'
 
 import LinkIcon from '../tiptap-icons/LinkIcon'
 import CornerDownLeftIcon from '../tiptap-icons/CornerDownLeftIcon'
 import ExternalLinkIcon from '../tiptap-icons/ExternalLinkIcon'
 import TrashIcon from '../tiptap-icons/TrashIcon'
-import IconButton from '../components/IconButton'
+import IconButton from '../ui/IconButton'
 import './LinkPopover.scss'
 
 export default defineComponent({
@@ -62,7 +65,7 @@ export default defineComponent({
       const isActive = editor?.value?.isActive('link') ?? false
 
       return (
-        <ElPopover
+        <Popover
           visible={isOpen.value}
           onUpdate:visible={handleVisibleChange}
           placement="bottom"
@@ -84,7 +87,7 @@ export default defineComponent({
             ),
             default: () => (
               <div class="tiptap-link-popover-inner">
-                <ElInput
+                <Input
                   modelValue={url.value}
                   onUpdate:modelValue={handleUrlInput}
                   type="url"
@@ -94,30 +97,30 @@ export default defineComponent({
                   onKeydown={handleKeyDown}
                 />
                 <div class="tiptap-link-popover-actions">
-                  <ElTooltip content="确认" showArrow={false} offset={4}>
-                    <ElButton
+                  <Tooltip content="确认" showArrow={false} offset={4}>
+                    <Button
                       text
                       icon={CornerDownLeftIcon}
                       disabled={!url.value}
                       onClick={setLink}
                     />
-                  </ElTooltip>
-                  <ElTooltip content="在新标签页打开" showArrow={false} offset={4}>
-                    <ElButton
+                  </Tooltip>
+                  <Tooltip content="在新标签页打开" showArrow={false} offset={4}>
+                    <Button
                       text
                       icon={ExternalLinkIcon}
                       disabled={!url.value && !isActive}
                       onClick={openLink}
                     />
-                  </ElTooltip>
-                  <ElTooltip content="移除链接" showArrow={false} offset={4}>
-                    <ElButton text icon={TrashIcon} disabled={!isActive} onClick={removeLink} />
-                  </ElTooltip>
+                  </Tooltip>
+                  <Tooltip content="移除链接" showArrow={false} offset={4}>
+                    <Button text icon={TrashIcon} disabled={!isActive} onClick={removeLink} />
+                  </Tooltip>
                 </div>
               </div>
             ),
           }}
-        </ElPopover>
+        </Popover>
       )
     }
   },

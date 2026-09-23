@@ -21,7 +21,7 @@ TypeScript 类型检查单独运行：`pnpm exec vue-tsc --noEmit`
 
 **双构建模式**（`vite.config.ts`）：
 - 应用模式（`pnpm build`）：构建演示应用到 `dist-app/`
-- 库模式（`pnpm build:lib`）：构建可发布的 ES + UMD 包到 `dist/`，外部化 vue、element-plus、@tiptap/*、katex、lowlight
+- 库模式（`pnpm build:lib`）：构建可发布的 ES + UMD 包到 `dist/`，外部化 vue、@tiptap/*、katex、lowlight
 
 **Feature Plugin 架构**：`TiptapEditor` 是一个轻量 shell，所有功能通过 `FeaturePlugin` 接口注入。消费方通过 `:features` prop 传入插件数组，决定工具栏内容和注册的 Tiptap 扩展。不传时只有基础编辑器（无工具栏）。
 

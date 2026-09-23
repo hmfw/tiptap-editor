@@ -1,6 +1,6 @@
 import { defineComponent, inject, type ShallowRef } from 'vue'
 import type { Editor } from '@tiptap/core'
-import IconButton from '../components/IconButton'
+import IconButton from '../ui/IconButton'
 import ImagePlusIcon from '../tiptap-icons/ImagePlusIcon'
 
 export default defineComponent({

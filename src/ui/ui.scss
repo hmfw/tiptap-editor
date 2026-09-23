@@ -1,0 +1,325 @@
+// 自定义 UI 组件样式，替代 element-plus。
+// 调色板：primary #409eff，边框 #dcdfe6，文本 #606266，占位符 #a8abb2。
+
+// ---------- Button ----------
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-sizing: border-box;
+  height: 32px;
+  padding: 8px 15px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #606266;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    color: #409eff;
+    border-color: #c6e2ff;
+    background-color: #ecf5ff;
+  }
+
+  &--primary {
+    color: #fff;
+    background-color: #409eff;
+    border-color: #409eff;
+
+    &:hover {
+      color: #fff;
+      background-color: #79bbff;
+      border-color: #79bbff;
+    }
+  }
+
+  &--text {
+    height: auto;
+    padding: 6px;
+    color: #606266;
+    background: transparent;
+    border-color: transparent;
+
+    &:hover {
+      color: #409eff;
+      background-color: rgba(64, 158, 255, 0.1);
+      border-color: transparent;
+    }
+  }
+
+  &.is-disabled,
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      color: #606266;
+      background-color: #fff;
+      border-color: #dcdfe6;
+    }
+
+    &.ui-button--primary:hover {
+      color: #fff;
+      background-color: #409eff;
+      border-color: #409eff;
+    }
+
+    &.ui-button--text:hover {
+      color: #606266;
+      background-color: transparent;
+    }
+  }
+
+  &__icon {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+.ui-button + .ui-button {
+  margin-left: 12px;
+}
+
+// ---------- Input ----------
+.ui-input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5px 11px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #606266;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.15s;
+  font-family: inherit;
+
+  &::placeholder {
+    color: #a8abb2;
+  }
+
+  &:hover {
+    border-color: #c0c4cc;
+  }
+
+  &:focus {
+    border-color: #409eff;
+  }
+
+  &:disabled {
+    color: #a8abb2;
+    background: #f5f7fa;
+    cursor: not-allowed;
+  }
+
+  &--textarea {
+    resize: vertical;
+    min-height: 32px;
+  }
+
+  &--small {
+    padding: 3px 9px;
+    font-size: 13px;
+  }
+}
+
+// ---------- Tooltip ----------
+.ui-tooltip-trigger {
+  display: inline-flex;
+}
+
+.ui-tooltip {
+  z-index: 3000;
+  padding: 6px 10px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #fff;
+  background: #303133;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  transition: opacity 0.15s;
+  max-width: 240px;
+  word-break: break-word;
+}
+
+// ---------- Popover ----------
+.ui-popover-trigger {
+  display: inline-flex;
+}
+
+.ui-popover {
+  z-index: 2000;
+  box-sizing: border-box;
+  padding: 12px;
+  color: #606266;
+  background: #fff;
+  border: 1px solid #e4e7ed;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transition: opacity 0.15s;
+}
+
+// ---------- Dialog ----------
+.ui-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2001;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 15vh 16px 16px;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+}
+
+.ui-dialog {
+  box-sizing: border-box;
+  max-width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #303133;
+  }
+
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    color: #909399;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover {
+      color: #409eff;
+    }
+  }
+
+  &__body {
+    padding: 0 20px 20px;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 0 20px 20px;
+  }
+}
+
+// ---------- Radio (segmented) ----------
+.ui-radio-group {
+  display: inline-flex;
+}
+
+.ui-radio-button {
+  padding: 0 15px;
+  height: 32px;
+  font-size: 14px;
+  line-height: 30px;
+  color: #606266;
+  background: #fff;
+  border: 1px solid #dcdfe6;
+  border-left: none;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+
+  &:first-child {
+    border-left: 1px solid #dcdfe6;
+    border-radius: 4px 0 0 4px;
+  }
+
+  &:last-child {
+    border-radius: 0 4px 4px 0;
+  }
+
+  &:hover {
+    color: #409eff;
+  }
+
+  &.is-active {
+    color: #fff;
+    background-color: #409eff;
+    border-color: #409eff;
+
+    & + .ui-radio-button {
+      border-left-color: #409eff;
+    }
+  }
+}
+
+// ---------- Dropdown ----------
+.ui-dropdown-trigger {
+  display: inline-flex;
+}
+
+.ui-dropdown-popper {
+  z-index: 2000;
+  min-width: 140px;
+  padding: 5px 0;
+  background: #fff;
+  border: 1px solid #e4e7ed;
+  border-radius: 6px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  transition: opacity 0.15s;
+}
+
+.ui-dropdown-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ui-dropdown-item {
+  padding: 6px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #606266;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: #ecf5ff;
+    color: #409eff;
+  }
+
+  &.is-divided {
+    margin-top: 5px;
+    border-top: 1px solid #ebeef5;
+    padding-top: 8px;
+  }
+
+  &.is-disabled {
+    color: #bbb;
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: transparent;
+      color: #bbb;
+    }
+  }
+}

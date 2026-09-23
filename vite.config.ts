@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import ElementPlus from 'unplugin-element-plus/vite'
 import dts from 'vite-plugin-dts'
 
 // https://vite.dev/config/
@@ -11,9 +10,8 @@ export default defineConfig(({ mode }) => {
       plugins: [
         vue(),
         vueJsx(),
-        ElementPlus({}),
         dts({
-          include: ['src/index.ts', 'src/TiptapEditor.vue', 'src/components', 'src/tiptap-extension'],
+          include: ['src/index.ts', 'src/TiptapEditor.tsx', 'src/ui', 'src/tiptap-extension'],
           outDir: 'dist',
           rollupTypes: true,
           tsconfigPath: './tsconfig.app.json',
@@ -30,8 +28,6 @@ export default defineConfig(({ mode }) => {
         rollupOptions: {
           external: [
             'vue',
-            'element-plus',
-            /^@element-plus\//,
             /^@tiptap\//,
             'katex',
             'lowlight',
@@ -39,7 +35,6 @@ export default defineConfig(({ mode }) => {
           output: {
             globals: {
               vue: 'Vue',
-              'element-plus': 'ElementPlus',
               '@tiptap/core': 'TiptapCore',
               '@tiptap/vue-3': 'TiptapVue3',
               '@tiptap/vue-3/menus': 'TiptapVue3Menus',
@@ -64,7 +59,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     base: '/tiptap-editor/',
-    plugins: [vue(), vueJsx(), ElementPlus({})],
+    plugins: [vue(), vueJsx()],
     build: {
       outDir: 'dist-app',
     },

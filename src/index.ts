@@ -1,6 +1,6 @@
 // 组件
 export { default as TiptapEditor } from './TiptapEditor'
-export { default as IconButton } from './components/IconButton'
+export { default as IconButton } from './ui/IconButton'
 export { ImageWithAlign } from './tiptap-extension/ImageWithAlign'
 
 // Feature plugins

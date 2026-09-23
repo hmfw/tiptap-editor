@@ -255,19 +255,26 @@ const openMyPanel = inject<() => void>('openMyPanel')
 ## 技术栈
 
 - vue 3.5.25
-- element-plus 2.13.3
-- @tiptap/core 3.27.0+
+- @tiptap/core 3.31.0+
+
+> UI 组件（按钮、对话框、下拉、气泡卡片等）为内置自研实现，无外部 UI 框架依赖。
 
 ## 版本历史
 
-### v1.1.0 (计划中)
+### v1.2.0 (当前版本)
+- ✨ 移除 Element Plus 依赖，改用内置自研 UI 原语（Button / Dialog / Dropdown / Input / Popover / Radio / Tooltip）
+- ⬆️ 升级 Tiptap peer 依赖到 3.31.0（从 3.27.0）、KaTeX 到 0.18
+- ♻️ `ImageWithAlign` 迁移到 Tiptap 3.31 的 `addDecorations` API
+- 🗂️ `IconButton` 迁移至 `src/ui/`
+- 🧹 清理过时文档
+
+### v1.1.0
 - ⬆️ 升级 Tiptap 到 3.27.0（从 3.22.5）
 - 🐛 修复表格复制问题（上游修复）
 - 🐛 修复 Markdown 快捷键问题（上游修复）
 - ⚡ 性能优化（ProseMirror 底层升级）
-- 📚 详见 [UPGRADE.md](./UPGRADE.md)
 
-### v1.0.4 (当前版本)
+### v1.0.4
 - 📸 添加效果预览截图
 - ✨ 添加 playwright-cli skill
 - 📖 补充常见场景示例
@@ -291,8 +298,11 @@ src/
 │   └── SeparatorFeature.tsx
 ├── types/
 │   └── plugin.ts             # FeaturePlugin 接口定义
-├── components/
-│   └── IconButton.tsx        # 基础按钮，包裹 ElButton 和 ElTooltip
+├── ui/                       # 通用 UI 原语（自研，无外部 UI 框架依赖）
+│   ├── Button.tsx / Dialog.tsx / Dropdown.tsx / Input.tsx / Popover.tsx / Radio.tsx / Tooltip.tsx
+│   ├── floating.ts           # 定位 + 点击外部关闭工具
+│   ├── ui.scss               # UI 原语样式
+│   └── IconButton.tsx        # 基础按钮，包裹 ui Button + Tooltip
 ├── tiptap-ui/                # 工具栏按钮组件（TSX）
 ├── tiptap-icons/             # SVG 图标组件（TSX）
 └── tiptap-extension/         # 自定义 Tiptap 扩展

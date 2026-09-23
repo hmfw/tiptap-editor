@@ -1,5 +1,6 @@
 import { defineComponent, type Component, type PropType } from 'vue'
-import { ElTooltip, ElButton } from 'element-plus'
+import Tooltip from './Tooltip'
+import Button from './Button'
 
 const iconButtonProps = {
   icon: {
@@ -18,15 +19,15 @@ export default defineComponent({
   setup(props) {
     return () => {
       return (
-        <ElTooltip showArrow={false} offset={6} content={props.tooltip}>
-          <ElButton
+        <Tooltip showArrow={false} offset={6} content={props.tooltip}>
+          <Button
             text
             icon={props.icon}
             class={['tiptap-button', { 'is-active': props.isActive }]}
             disabled={props.disabled}
             onClick={props.onClick}
           />
-        </ElTooltip>
+        </Tooltip>
       )
     }
   },
