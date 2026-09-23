@@ -242,6 +242,14 @@ const openMyPanel = inject<() => void>('openMyPanel')
 - 气泡菜单（选中文本时浮现）
 - Placeholder
 
+### 数学公式（KaTeX 样式）
+
+`MathFeature` 基于 KaTeX 渲染。KaTeX 样式由 `MathFeature` 自动引入（`import 'katex/dist/katex.min.css'` 作为副作用导入），**无需手动引入**。
+
+为了让库的 CSS 保持精简，该样式在构建时被外部化（不打包进本库 CSS，否则 KaTeX 字体会被内联导致体积膨胀到 ~1.4MB）。消费方的打包器（Vite / webpack 等）会用其自身安装的 `katex`（peer dependency）解析并加载样式与字体，因此确保已安装 `katex` 即可。
+
+> 若通过 `<script>` 直接使用 UMD 构建（无打包器环境），则需自行在页面引入 `katex` 的样式。
+
 ### 代码高亮
 
 `CodeBlockFeature` 使用 `lowlight` 提供语法高亮，默认支持以下常见语言：
@@ -261,7 +269,15 @@ const openMyPanel = inject<() => void>('openMyPanel')
 
 ## 版本历史
 
-### v1.2.0 (当前版本)
+### v1.3.0 (当前版本)
+- 🐛 修复 KaTeX 样式内联导致构建 CSS 体积膨胀（~1.4MB → ~21KB）：外部化 `katex/dist/katex.min.css`，交由消费方打包器用其自身 `katex` 解析
+- 🐛 补充任务列表（taskList）缺失的样式
+- ✨ 导出 `IconButtonProps` 类型（由运行时 props 定义推导）
+- 💄 构建产物 CSS 改为「每条规则一行」格式，并消除空选择器规则
+- 🔧 引入 Prettier 做全项目统一格式化（`pnpm format` / `pnpm format:check`）
+- 🔧 修复生成的 `dist/index.d.ts`：合并重复 import、规范缩进，并交由 Prettier 统一格式化
+
+### v1.2.0
 - ✨ 移除 Element Plus 依赖，改用内置自研 UI 原语（Button / Dialog / Dropdown / Input / Popover / Radio / Tooltip）
 - ⬆️ 升级 Tiptap peer 依赖到 3.31.0（从 3.27.0）、KaTeX 到 0.18
 - ♻️ `ImageWithAlign` 迁移到 Tiptap 3.31 的 `addDecorations` API

@@ -22,8 +22,20 @@ export default defineComponent({
     const editLatex = ref('')
     const editType = ref<MathType>('inline')
 
-    watch(() => props.latex, (val) => { editLatex.value = val }, { immediate: true })
-    watch(() => props.type, (val) => { editType.value = val }, { immediate: true })
+    watch(
+      () => props.latex,
+      (val) => {
+        editLatex.value = val
+      },
+      { immediate: true },
+    )
+    watch(
+      () => props.type,
+      (val) => {
+        editType.value = val
+      },
+      { immediate: true },
+    )
 
     const isInsert = computed(() => props.pos === null)
 
@@ -53,9 +65,17 @@ export default defineComponent({
       } else {
         const pos = props.pos!
         if (props.type === 'inline') {
-          e.chain().focus().deleteInlineMath({ pos }).insertBlockMath({ latex: editLatex.value }).run()
+          e.chain()
+            .focus()
+            .deleteInlineMath({ pos })
+            .insertBlockMath({ latex: editLatex.value })
+            .run()
         } else {
-          e.chain().focus().deleteBlockMath({ pos }).insertInlineMath({ latex: editLatex.value }).run()
+          e.chain()
+            .focus()
+            .deleteBlockMath({ pos })
+            .insertInlineMath({ latex: editLatex.value })
+            .run()
         }
       }
       emit('update:visible', false)
@@ -71,11 +91,7 @@ export default defineComponent({
           footer: () => (
             <>
               <Button onClick={() => emit('update:visible', false)}>取消</Button>
-              <Button
-                type="primary"
-                disabled={!editLatex.value.trim()}
-                onClick={confirm}
-              >
+              <Button type="primary" disabled={!editLatex.value.trim()} onClick={confirm}>
                 确认
               </Button>
             </>
@@ -83,7 +99,12 @@ export default defineComponent({
         }}
       >
         <div class="tiptap-math-dialog">
-          <RadioGroup modelValue={editType.value} onUpdate:modelValue={(val: any) => { editType.value = val as MathType }}>
+          <RadioGroup
+            modelValue={editType.value}
+            onUpdate:modelValue={(val: any) => {
+              editType.value = val as MathType
+            }}
+          >
             <RadioButton value="inline">行内公式</RadioButton>
             <RadioButton value="block">块级公式</RadioButton>
           </RadioGroup>
@@ -92,7 +113,9 @@ export default defineComponent({
             type="textarea"
             rows={3}
             placeholder="请输入 LaTeX 公式，例如：E=mc^2"
-            onUpdate:modelValue={(val: string) => { editLatex.value = val }}
+            onUpdate:modelValue={(val: string) => {
+              editLatex.value = val
+            }}
           />
           <div class={['tiptap-math-preview', { 'tiptap-math-preview--empty': !preview.value }]}>
             {!preview.value ? (
@@ -106,4 +129,3 @@ export default defineComponent({
     )
   },
 })
-

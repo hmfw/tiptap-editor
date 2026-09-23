@@ -1,6 +1,16 @@
 import { defineComponent, ref } from 'vue'
 import TiptapEditor from './TiptapEditor'
-import { UndoRedoFeature, TextStyleFeature, TextAlignFeature, ListFeature, CodeBlockFeature, TableFeature, MathFeature, ImageFeature, SeparatorFeature } from './index'
+import {
+  UndoRedoFeature,
+  TextStyleFeature,
+  TextAlignFeature,
+  ListFeature,
+  CodeBlockFeature,
+  TableFeature,
+  MathFeature,
+  ImageFeature,
+  SeparatorFeature,
+} from './index'
 
 export default defineComponent({
   name: 'App',
@@ -130,26 +140,42 @@ export default defineComponent({
     ]
 
     return () => (
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start', padding: '16px', height: '100vh', boxSizing: 'border-box' }}>
+      <div
+        style={{
+          display: 'flex',
+          gap: '16px',
+          alignItems: 'flex-start',
+          padding: '16px',
+          height: '100vh',
+          boxSizing: 'border-box',
+        }}
+      >
         <div style={{ flex: '1 1 0', minWidth: '0', height: '100%', overflow: 'auto' }}>
           <TiptapEditor
             modelValue={content.value}
-            onUpdate:modelValue={(val: string) => { content.value = val }}
+            onUpdate:modelValue={(val: string) => {
+              content.value = val
+            }}
             features={features}
           />
         </div>
-        <div style={{ flex: '1 1 0', minWidth: '0', height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: '13px', fontWeight: '600', color: '#666', marginBottom: '8px' }}>只读渲染预览</div>
+        <div
+          style={{
+            flex: '1 1 0',
+            minWidth: '0',
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <div style={{ fontSize: '13px', fontWeight: '600', color: '#666', marginBottom: '8px' }}>
+            只读渲染预览
+          </div>
           <div style={{ flex: '1 1 0', overflow: 'auto' }}>
-            <TiptapEditor
-              modelValue={content.value}
-              readonly={true}
-              features={features}
-            />
+            <TiptapEditor modelValue={content.value} readonly={true} features={features} />
           </div>
         </div>
       </div>
     )
   },
 })
-

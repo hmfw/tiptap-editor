@@ -20,7 +20,10 @@
   cursor: pointer;
   white-space: nowrap;
   user-select: none;
-  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 
   &:hover {
     color: #409eff;
@@ -246,7 +249,10 @@
   border: 1px solid #dcdfe6;
   border-left: none;
   cursor: pointer;
-  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+  transition:
+    color 0.15s,
+    background-color 0.15s,
+    border-color 0.15s;
 
   &:first-child {
     border-left: 1px solid #dcdfe6;

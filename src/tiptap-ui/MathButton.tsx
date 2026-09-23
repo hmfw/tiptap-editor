@@ -7,7 +7,10 @@ export default defineComponent({
   name: 'MathButton',
   setup() {
     const editor = inject<ShallowRef<Editor | undefined>>('editor')
-    const openMathDialog = inject<(opts?: { latex?: string; pos?: number | null; type?: 'inline' | 'block' }) => void>('openMathDialog')
+    const openMathDialog =
+      inject<(opts?: { latex?: string; pos?: number | null; type?: 'inline' | 'block' }) => void>(
+        'openMathDialog',
+      )
 
     return () => (
       <IconButton

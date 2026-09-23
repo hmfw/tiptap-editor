@@ -48,48 +48,45 @@ export default defineComponent({
           reference: () => (
             <span>
               <Tooltip content="表格" showArrow={false} offset={6} disabled={visible.value}>
-                <Button
-                  text
-                  class={['tiptap-button', { 'is-active': visible.value }]}
-                >
+                <Button text class={['tiptap-button', { 'is-active': visible.value }]}>
                   <TableIcon class="tiptap-button-icon" />
                 </Button>
               </Tooltip>
             </span>
           ),
           default: () => (
-              <div class="tiptap-table-picker">
-                <div class="tiptap-table-picker-grid" onMouseleave={onGridLeave}>
-                  {Array.from({ length: ROWS }, (_, r) => (
-                    <div key={r} class="tiptap-table-picker-row">
-                      {Array.from({ length: COLS }, (_, c) => (
-                        <div
-                          key={c}
-                          class={[
-                            'tiptap-table-picker-cell',
-                            { 'is-active': c < hoverCol.value && r < hoverRow.value },
-                          ]}
-                          onMouseenter={() => onCellHover(c + 1, r + 1)}
-                          onClick={() => onCellClick(c + 1, r + 1)}
-                        />
-                      ))}
-                    </div>
-                  ))}
+            <div class="tiptap-table-picker">
+              <div class="tiptap-table-picker-grid" onMouseleave={onGridLeave}>
+                {Array.from({ length: ROWS }, (_, r) => (
+                  <div key={r} class="tiptap-table-picker-row">
+                    {Array.from({ length: COLS }, (_, c) => (
+                      <div
+                        key={c}
+                        class={[
+                          'tiptap-table-picker-cell',
+                          { 'is-active': c < hoverCol.value && r < hoverRow.value },
+                        ]}
+                        onMouseenter={() => onCellHover(c + 1, r + 1)}
+                        onClick={() => onCellClick(c + 1, r + 1)}
+                      />
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <div class="tiptap-table-picker-footer">
+                <div class="tiptap-table-picker-counter">
+                  <span>列</span>
+                  <span>{hoverCol.value || 1}</span>
                 </div>
-                <div class="tiptap-table-picker-footer">
-                  <div class="tiptap-table-picker-counter">
-                    <span>列</span>
-                    <span>{hoverCol.value || 1}</span>
-                  </div>
-                  <span class="tiptap-table-picker-x">x</span>
-                  <div class="tiptap-table-picker-counter">
-                    <span>行</span>
-                    <span>{hoverRow.value || 1}</span>
-                  </div>
+                <span class="tiptap-table-picker-x">x</span>
+                <div class="tiptap-table-picker-counter">
+                  <span>行</span>
+                  <span>{hoverRow.value || 1}</span>
                 </div>
               </div>
-            ),
-          }}
+            </div>
+          ),
+        }}
       />
     )
   },

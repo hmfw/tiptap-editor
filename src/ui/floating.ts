@@ -1,10 +1,18 @@
 import { onBeforeUnmount } from 'vue'
 
 export type Placement =
-  | 'top' | 'top-start' | 'top-end'
-  | 'bottom' | 'bottom-start' | 'bottom-end'
-  | 'left' | 'left-start' | 'left-end'
-  | 'right' | 'right-start' | 'right-end'
+  | 'top'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left'
+  | 'left-start'
+  | 'left-end'
+  | 'right'
+  | 'right-start'
+  | 'right-end'
 
 /**
  * 计算浮层相对触发元素的固定定位坐标（viewport 坐标，配合 position: fixed 使用）。

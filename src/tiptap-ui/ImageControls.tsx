@@ -154,17 +154,18 @@ export default defineComponent({
 
       return (
         <div class="tiptap-image-controls" style={style}>
-          {!isRO && ALIGN_BUTTONS.map(({ value, title, Icon }) => (
-            <button
-              key={value}
-              class={['tiptap-image-controls-btn', align === value && 'is-active']}
-              title={title}
-              onMousedown={preventDefault}
-              onClick={() => ed.chain().focus().updateAttributes('image', { align: value }).run()}
-            >
-              <Icon />
-            </button>
-          ))}
+          {!isRO &&
+            ALIGN_BUTTONS.map(({ value, title, Icon }) => (
+              <button
+                key={value}
+                class={['tiptap-image-controls-btn', align === value && 'is-active']}
+                title={title}
+                onMousedown={preventDefault}
+                onClick={() => ed.chain().focus().updateAttributes('image', { align: value }).run()}
+              >
+                <Icon />
+              </button>
+            ))}
 
           {!isRO && <span class="tiptap-image-controls-separator" />}
 

@@ -17,3 +17,4 @@ export { SeparatorFeature } from './features/SeparatorFeature'
 // 类型
 export type { FeaturePlugin, PluginInstallContext, PluginInstallResult } from './types/plugin'
 export type { UploadFn, MathType } from './types'
+export type { IconButtonProps } from './ui/IconButton'

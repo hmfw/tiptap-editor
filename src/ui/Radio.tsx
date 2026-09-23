@@ -1,11 +1,4 @@
-import {
-  defineComponent,
-  provide,
-  inject,
-  computed,
-  type ComputedRef,
-  type PropType,
-} from 'vue'
+import { defineComponent, provide, inject, computed, type ComputedRef, type PropType } from 'vue'
 
 type RadioValue = string | number | boolean
 

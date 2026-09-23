@@ -78,11 +78,7 @@ export default defineComponent({
           {{
             reference: () => (
               <span>
-                <IconButton
-                  tooltip="链接"
-                  icon={LinkIcon}
-                  isActive={isActive}
-                />
+                <IconButton tooltip="链接" icon={LinkIcon} isActive={isActive} />
               </span>
             ),
             default: () => (

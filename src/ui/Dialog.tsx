@@ -34,12 +34,7 @@ export default defineComponent({
             <div class="ui-dialog" style={{ width: props.width }}>
               <div class="ui-dialog__header">
                 <span class="ui-dialog__title">{props.title}</span>
-                <button
-                  type="button"
-                  class="ui-dialog__close"
-                  aria-label="关闭"
-                  onClick={close}
-                >
+                <button type="button" class="ui-dialog__close" aria-label="关闭" onClick={close}>
                   <svg
                     width="16"
                     height="16"

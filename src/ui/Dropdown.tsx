@@ -136,10 +136,7 @@ export const DropdownItem = defineComponent({
     const ctx = inject<DropdownCtx>(DropdownKey)
     return () => (
       <li
-        class={[
-          'ui-dropdown-item',
-          { 'is-disabled': props.disabled, 'is-divided': props.divided },
-        ]}
+        class={['ui-dropdown-item', { 'is-disabled': props.disabled, 'is-divided': props.divided }]}
         onClick={() => {
           if (!props.disabled) ctx?.command(props.command)
         }}

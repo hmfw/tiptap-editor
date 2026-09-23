@@ -1,4 +1,4 @@
-import { defineComponent, type Component, type PropType } from 'vue'
+import { defineComponent, type Component, type ExtractPublicPropTypes, type PropType } from 'vue'
 import Tooltip from './Tooltip'
 import Button from './Button'
 
@@ -12,6 +12,9 @@ const iconButtonProps = {
   disabled: { type: Boolean, default: false },
   onClick: { type: Function as PropType<() => void> },
 }
+
+// 对外的 props 类型，从运行时 props 定义推导，单一数据源
+export type IconButtonProps = ExtractPublicPropTypes<typeof iconButtonProps>
 
 export default defineComponent({
   name: 'IconButton',

@@ -26,7 +26,7 @@ export default defineComponent({
     const isReadonly = computed(() => props.readonly ?? false)
     provide('readonly', isReadonly)
 
-    const installed = props.features.map(plugin => ({
+    const installed = props.features.map((plugin) => ({
       plugin,
       result: plugin.install({
         readonly: isReadonly,
@@ -60,15 +60,21 @@ export default defineComponent({
 
     provide('editor', editor)
 
-    watch(() => props.modelValue, (val) => {
-      if (editor.value && val !== editor.value.getHTML()) {
-        editor.value.commands.setContent(val, { emitUpdate: false })
-      }
-    })
+    watch(
+      () => props.modelValue,
+      (val) => {
+        if (editor.value && val !== editor.value.getHTML()) {
+          editor.value.commands.setContent(val, { emitUpdate: false })
+        }
+      },
+    )
 
-    watch(() => props.readonly, (val) => {
-      editor.value?.setEditable(!val)
-    })
+    watch(
+      () => props.readonly,
+      (val) => {
+        editor.value?.setEditable(!val)
+      },
+    )
 
     return () => (
       <div class="tiptap-editor">

@@ -61,12 +61,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <span
-          ref={triggerEl}
-          class="ui-tooltip-trigger"
-          onMouseenter={show}
-          onMouseleave={hide}
-        >
+        <span ref={triggerEl} class="ui-tooltip-trigger" onMouseenter={show} onMouseleave={hide}>
           {slots.default?.()}
         </span>
         <Teleport to="body">

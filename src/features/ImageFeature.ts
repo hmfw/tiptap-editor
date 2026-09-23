@@ -12,7 +12,16 @@ export const ImageFeature: FeaturePlugin = {
         allowBase64: true,
         resize: {
           enabled: true,
-          directions: ['top', 'right', 'bottom', 'left', 'top-right', 'top-left', 'bottom-right', 'bottom-left'],
+          directions: [
+            'top',
+            'right',
+            'bottom',
+            'left',
+            'top-right',
+            'top-left',
+            'bottom-right',
+            'bottom-left',
+          ],
           minWidth: 50,
           minHeight: 50,
           alwaysPreserveAspectRatio: false,
